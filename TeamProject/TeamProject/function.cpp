@@ -18,7 +18,6 @@ void InitBuffer()
 void Display()
 {
 	glm::mat4 transformMatrix = glm::mat4(1.0f);
-	glm::mat4 rotateMatrix = glm::mat4(1.0f);
 	glm::vec3 cameraPos = glm::vec3(5.0f, 6.0f, 8.0f); //--- 카메라 위치
 	glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 0.0f); //--- 카메라 바라보는 방향
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //--- 카메라 위쪽 방향
@@ -28,7 +27,6 @@ void Display()
 	unsigned int projectionLocation;
 	unsigned int modelLocation;
 	unsigned int viewLocation;
-	unsigned int rotateLocation;
 	int ambientLocation;
 	int lightPosLocation;
 	int lightColorLocation;
@@ -41,7 +39,6 @@ void Display()
 	lightColorLocation = glGetUniformLocation(s_program, "lightColor"); //---조명색깔
 	viewPosition = glGetUniformLocation(s_program, "viewPos");	//--- 카메라 위치
 	modelLocation = glGetUniformLocation(s_program, "modelTransform");	//---모델변환행렬
-	rotateLocation = glGetUniformLocation(s_program, "rotateTransform");	//--노멀회전행렬
 	objColorLocation = glGetUniformLocation(s_program, "objectColor"); //---오브젝트색상
 	ambientLocation = glGetUniformLocation(s_program, "ambient");	//---빛 세기
 
@@ -61,7 +58,6 @@ void Display()
 	glUniform3f(lightColorLocation, 1.0, 1.0, 1.0);
 	glUniform3f(viewPosition, 0.0, 0.0, 4.0);
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(transformMatrix));
-	glUniformMatrix4fv(rotateLocation, 1, GL_FALSE, glm::value_ptr(rotateMatrix));
 	glUniform3f(objColorLocation, 0.55, 0.0, 1.0);
 	glUniform1f(ambientLocation, 0.3);
 
