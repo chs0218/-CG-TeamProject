@@ -1,0 +1,7 @@
+﻿  TeamProject.cpp
+D:\Projects\-CG--TeamProject\TeamProject\TeamProject\objRead.cpp(75,29): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Projects\-CG--TeamProject\TeamProject\TeamProject\objRead.cpp(76,29): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Projects\-CG--TeamProject\TeamProject\TeamProject\objRead.cpp(77,29): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Projects\-CG--TeamProject\TeamProject\TeamProject\function.cpp(61,46): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+D:\Projects\-CG--TeamProject\TeamProject\TeamProject\function.cpp(62,34): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+  TeamProject.vcxproj -> D:\Projects\-CG--TeamProject\TeamProject\Debug\TeamProject.exe
