@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _function // 헤더파일에 재정의로 인한 오류를 막아줌
+#define _function
+
 #include <gl/glew.h>
 #include <gl/freeglut.h>
 #include <gl/freeglut_ext.h>
@@ -10,7 +12,7 @@
 
 float shapevertices[216];
 
-GLfloat Dots[][3] = {
+GLfloat cubeDots[][3] = {
 	// 육면체
 	{-BOXSIZE, BOXSIZE, BOXSIZE},
 	{-BOXSIZE, -BOXSIZE, BOXSIZE},
@@ -23,7 +25,7 @@ GLfloat Dots[][3] = {
 };
 
 
-GLfloat normal[][3] = {
+GLfloat cubeNormal[][3] = {
 	{0.0, 0.0, 1.0},
 	{0.0, 0.0, -1.0},
 	{1.0, 0.0, 0.0},
@@ -32,7 +34,7 @@ GLfloat normal[][3] = {
 	{0.0, -1.0, 0.0}
 };
 
-unsigned int Shapeindex[] = {
+unsigned int cubeShapeindex[] = {
 	// 육면체
 	0, 1, 2,
 	0, 2, 3,
@@ -48,7 +50,7 @@ unsigned int Shapeindex[] = {
 	1, 6, 2
 };
 
-unsigned int normalindex[] = {
+unsigned int cubeNormalindex[] = {
 	// 육면체
 	0, 0, 0,
 	0, 0, 0,
@@ -74,3 +76,5 @@ void Display();
 void Reshape(int w, int h);
 void TimerFunc(int value);
 void Keyboard(unsigned char key, int x, int y);
+
+#endif

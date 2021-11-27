@@ -97,25 +97,25 @@ void InitVertices()
 {
 	for (int i = 0; i < 12; ++i)
 	{
-		shapevertices[18 * i] = Dots[Shapeindex[3 * i]][0];
-		shapevertices[18 * i + 1] = Dots[Shapeindex[3 * i]][1];
-		shapevertices[18 * i + 2] = Dots[Shapeindex[3 * i]][2];
-		shapevertices[18 * i + 3] = normal[normalindex[3 * i]][0];
-		shapevertices[18 * i + 4] = normal[normalindex[3 * i]][1];
-		shapevertices[18 * i + 5] = normal[normalindex[3 * i]][2];
+		shapevertices[18 * i] = cubeDots[cubeShapeindex[3 * i]][0];
+		shapevertices[18 * i + 1] = cubeDots[cubeShapeindex[3 * i]][1];
+		shapevertices[18 * i + 2] = cubeDots[cubeShapeindex[3 * i]][2];
+		shapevertices[18 * i + 3] = cubeNormal[cubeNormalindex[3 * i]][0];
+		shapevertices[18 * i + 4] = cubeNormal[cubeNormalindex[3 * i]][1];
+		shapevertices[18 * i + 5] = cubeNormal[cubeNormalindex[3 * i]][2];
 
-		shapevertices[18 * i + 6] = Dots[Shapeindex[3 * i + 1]][0];
-		shapevertices[18 * i + 7] = Dots[Shapeindex[3 * i + 1]][1];
-		shapevertices[18 * i + 8] = Dots[Shapeindex[3 * i + 1]][2];
-		shapevertices[18 * i + 9] = normal[normalindex[3 * i + 1]][0];
-		shapevertices[18 * i + 10] = normal[normalindex[3 * i + 1]][1];
-		shapevertices[18 * i + 11] = normal[normalindex[3 * i + 1]][2];
+		shapevertices[18 * i + 6] = cubeDots[cubeShapeindex[3 * i + 1]][0];
+		shapevertices[18 * i + 7] = cubeDots[cubeShapeindex[3 * i + 1]][1];
+		shapevertices[18 * i + 8] = cubeDots[cubeShapeindex[3 * i + 1]][2];
+		shapevertices[18 * i + 9] = cubeNormal[cubeNormalindex[3 * i + 1]][0];
+		shapevertices[18 * i + 10] = cubeNormal[cubeNormalindex[3 * i + 1]][1];
+		shapevertices[18 * i + 11] = cubeNormal[cubeNormalindex[3 * i + 1]][2];
 
-		shapevertices[18 * i + 12] = Dots[Shapeindex[3 * i + 2]][0];
-		shapevertices[18 * i + 13] = Dots[Shapeindex[3 * i + 2]][1];
-		shapevertices[18 * i + 14] = Dots[Shapeindex[3 * i + 2]][2];
-		shapevertices[18 * i + 15] = normal[normalindex[3 * i + 2]][0];
-		shapevertices[18 * i + 16] = normal[normalindex[3 * i + 2]][1];
-		shapevertices[18 * i + 17] = normal[normalindex[3 * i + 2]][2];
+		shapevertices[18 * i + 12] = cubeDots[cubeShapeindex[3 * i + 2]][0];
+		shapevertices[18 * i + 13] = cubeDots[cubeShapeindex[3 * i + 2]][1];
+		shapevertices[18 * i + 14] = cubeDots[cubeShapeindex[3 * i + 2]][2];
+		shapevertices[18 * i + 15] = cubeNormal[cubeNormalindex[3 * i + 2]][0];
+		shapevertices[18 * i + 16] = cubeNormal[cubeNormalindex[3 * i + 2]][1];
+		shapevertices[18 * i + 17] = cubeNormal[cubeNormalindex[3 * i + 2]][2];
 	}
 }

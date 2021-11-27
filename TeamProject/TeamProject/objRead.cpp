@@ -42,9 +42,9 @@ int ObjRead::loadObj(const char* filename)
 			temp_uvs.push_back(uv);
 		}
 		else if (strcmp(lineHeader, "vn") == 0) {
-			glm::vec3 normal;
-			fscanf(objFile, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
-			temp_normals.push_back(normal);
+			glm::vec3 cubeNormal;
+			fscanf(objFile, "%f %f %f\n", &cubeNormal.x, &cubeNormal.y, &cubeNormal.z);
+			temp_normals.push_back(cubeNormal);
 		}
 		else if (strcmp(lineHeader, "f") == 0) {
 			std::string vertex1, vertex2, vertex3;
@@ -151,9 +151,9 @@ int ObjRead::loadObj_normalize_center (const char* filename)
 			temp_uvs.push_back(uv);
 		}
 		else if (strcmp(lineHeader, "vn") == 0) {
-			glm::vec3 normal;
-			fscanf(objFile, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
-			temp_normals.push_back(normal);
+			glm::vec3 cubeNormal;
+			fscanf(objFile, "%f %f %f\n", &cubeNormal.x, &cubeNormal.y, &cubeNormal.z);
+			temp_normals.push_back(cubeNormal);
 		}
 		else if (strcmp(lineHeader, "f") == 0) {
 			std::string vertex1, vertex2, vertex3;

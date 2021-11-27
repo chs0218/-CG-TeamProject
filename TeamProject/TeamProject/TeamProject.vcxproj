@@ -149,12 +149,14 @@
     <ClCompile Include="makeShader.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="objectManager.cpp" />
     <ClCompile Include="TeamProject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\objRead.h" />
     <ClInclude Include="function.h" />
     <ClInclude Include="makeShader.h" />
+    <ClInclude Include="objectManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

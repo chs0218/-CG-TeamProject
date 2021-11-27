@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _makeShader
+#define _makeShader
 
 #include <iostream>
 #include <string>
@@ -18,3 +19,5 @@ GLuint s_program;
 void checkCompileErrors(unsigned int shader, std::string type);
 int MakeVertexShader(const char* vertexPath, int n);
 int MakeFragmentShader(const char* fragmentPath, int count);
+
+#endif
