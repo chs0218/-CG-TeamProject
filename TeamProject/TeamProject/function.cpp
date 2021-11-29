@@ -75,6 +75,18 @@ void Display()
 		}
 	}
 
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		glUniform3f(objColorLocation, 0.3, 0.3, 0.3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player1[i].transform));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		glUniform3f(objColorLocation, 0.8, 0.8, 0.8);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].transform));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+
 	glutSwapBuffers();
 }
 
@@ -88,6 +100,7 @@ void Reshape(int w, int h)
 
 void TimerFunc(int value)
 {
+
 	glutTimerFunc(25, TimerFunc, 1);
 	glutPostRedisplay();
 }

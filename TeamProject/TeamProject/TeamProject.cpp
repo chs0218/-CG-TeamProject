@@ -8,6 +8,14 @@
 #include "makeShader.cpp"
 #include "function.h"
 #include "function.cpp"
+#include <random>
+#include <time.h>
+
+time_t timer = time(NULL);
+
+std::default_random_engine dre((unsigned int)timer);
+std::uniform_int_distribution<> uidRine{ 0 , 19 };
+std::uniform_int_distribution<> uidRow{ 0 , 2 };
 
 // Reading Obj file
 #define  _CRT_SECURE_NO_WARNINGS
@@ -54,8 +62,16 @@ int main(int argc, char** argv)
 
 	for (int i = 0; i < mapSize; ++i) {
 		for (int j = 0; j < mapSize; ++j) {
-			Map[i][j].translateMatrix(-BOXSIZE * 20 + BOXSIZE + (j * 2 * BOXSIZE), BOXSIZE, -BOXSIZE * 20 + BOXSIZE + (i * 2 * BOXSIZE));
+			Map[i][j].translateMatrix(-BOXSIZE * 19 + (j * 2.0 * BOXSIZE), BOXSIZE, -BOXSIZE * 19 + (i * 2.0 * BOXSIZE));
 		}
+	}
+
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		Player1[i].translateMatrix(-BOXSIZE * 19 +  + ((GLfloat)uidRine(dre) * 2.0 * BOXSIZE), BOXSIZE * 3, -BOXSIZE * 19 + ((GLfloat)uidRow(dre) * 2.0 * BOXSIZE));
+	}
+
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		Player2[i].translateMatrix(-BOXSIZE * 19 + (((GLfloat)uidRine(dre)) * (2 * BOXSIZE)), BOXSIZE * 3, -BOXSIZE * 19 + (((GLfloat)uidRow(dre) + 17) * (2.0 * BOXSIZE)));
 	}
 
 	// callback functions

@@ -13,6 +13,8 @@
 
 #define mapSize 20
 
+#define PLAYERNUM 3
+
 float shapevertices[216];
 
 GLfloat cubeDots[][3] = {
@@ -75,6 +77,9 @@ GLuint ShapeVAO;
 GLuint ShapeVBO;
 
 objectManager Map[mapSize][mapSize];
+
+objectManager Player1[PLAYERNUM];
+objectManager Player2[PLAYERNUM];
 
 void InitBuffer();
 void Display();
