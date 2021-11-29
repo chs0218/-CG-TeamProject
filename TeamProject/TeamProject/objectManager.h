@@ -10,14 +10,13 @@
 enum directionMode { STOP, UP, DOWN, FRONT, BACK, LEFT, RIGHT };
 
 class objectManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스
-	glm::mat4 transform = glm::mat4(1.0f);
+	
 	GLfloat objectRGB[3]{0.0f};
 	GLfloat direction = STOP;
-	int objectIndex;
+public:
+	glm::mat4 transform = glm::mat4(1.0f);
 
-	objectManager(int Index) : objectIndex{ Index } {
-
-	}
+	objectManager();
 	~objectManager(){}
 	
 	void rotateMatrix(GLfloat degree, int base);

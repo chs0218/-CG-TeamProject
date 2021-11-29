@@ -1,5 +1,9 @@
 #include "objectManager.h"
 
+objectManager::objectManager() {
+	transform = glm::mat4(1.0f);
+}
+
 void objectManager::rotateMatrix(GLfloat degree, int base) {//base 어떤 축 기준 회전? -> 1 = x축, 2 = y축, 3 = z축
 	glm::mat4 rt(1.0f);
 

@@ -7,8 +7,11 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "objectManager.h"
 
-#define BOXSIZE 1.0
+#define BOXSIZE 0.5
+
+#define mapSize 20
 
 float shapevertices[216];
 
@@ -68,8 +71,10 @@ unsigned int cubeNormalindex[] = {
 
 GLuint g_window_w = 1400;
 GLuint g_window_h = 900;
-GLuint ShapeVAO;
-GLuint ShapeVBO;
+GLuint ShapeVAO[mapSize][mapSize];
+GLuint ShapeVBO[mapSize][mapSize];
+
+objectManager Map[mapSize][mapSize];
 
 void InitBuffer();
 void Display();

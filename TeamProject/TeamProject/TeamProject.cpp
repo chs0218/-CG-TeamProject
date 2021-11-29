@@ -52,6 +52,12 @@ int main(int argc, char** argv)
 	InitVertices();
 	InitBuffer();
 
+	for (int i = 0; i < mapSize; ++i) {
+		for (int j = 0; j < mapSize; ++j) {
+			Map[i][j].translateMatrix(-BOXSIZE * 20 + BOXSIZE + (j * 2 * BOXSIZE), BOXSIZE, -BOXSIZE * 20 + BOXSIZE + (i * 2 * BOXSIZE));
+		}
+	}
+
 	// callback functions
 	glutDisplayFunc(Display);
 	glutReshapeFunc(Reshape);
