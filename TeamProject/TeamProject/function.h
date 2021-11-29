@@ -71,8 +71,8 @@ unsigned int cubeNormalindex[] = {
 
 GLuint g_window_w = 1400;
 GLuint g_window_h = 900;
-GLuint ShapeVAO[mapSize][mapSize];
-GLuint ShapeVBO[mapSize][mapSize];
+GLuint ShapeVAO;
+GLuint ShapeVBO;
 
 objectManager Map[mapSize][mapSize];
 

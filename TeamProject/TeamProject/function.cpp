@@ -2,22 +2,17 @@
 
 void InitBuffer()
 {
-	for (int i = 0; i < mapSize; ++i) {
-		for (int j = 0; j < mapSize; ++j) {
-			glGenVertexArrays(1, &ShapeVAO[i][j]);
-			glGenBuffers(1, &ShapeVBO[i][j]);
+	glGenVertexArrays(1, &ShapeVAO);
+	glGenBuffers(1, &ShapeVBO);
 
-			glBindVertexArray(ShapeVAO[i][j]);
-			glBindBuffer(GL_ARRAY_BUFFER, ShapeVBO[i][j]);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(shapevertices), shapevertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-			glEnableVertexAttribArray(1);
-			glEnable(GL_DEPTH_TEST);
-		}
-	}
-	
+	glBindVertexArray(ShapeVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, ShapeVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(shapevertices), shapevertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Display()
@@ -65,10 +60,10 @@ void Display()
 	glUniform1f(ambientLocation, 0.3);
 
 
-
+	glBindVertexArray(ShapeVAO);
 	for (int i = 0; i < mapSize; ++i) {
 		for (int j = 0; j < mapSize; ++j) {
-			if (j % 2 == 0 && i % 2 == 1) {
+			if (j % 2 == i % 2) {
 				glUniform3f(objColorLocation, 0.3, 0.3, 0.3);
 			}
 			else {
@@ -76,7 +71,6 @@ void Display()
 			}
 
 			glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Map[i][j].transform));
-			glBindVertexArray(ShapeVAO[i][j]);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 	}
