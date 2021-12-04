@@ -82,6 +82,7 @@ objectManager Player1[PLAYERNUM];
 objectManager Player2[PLAYERNUM];
 
 void InitBuffer();
+void InitGame();
 void Display();
 void Reshape(int w, int h);
 void TimerFunc(int value);

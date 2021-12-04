@@ -100,7 +100,10 @@ void Reshape(int w, int h)
 
 void TimerFunc(int value)
 {
-
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		Player1[i].move();
+		Player2[i].move();
+	}
 	glutTimerFunc(25, TimerFunc, 1);
 	glutPostRedisplay();
 }
@@ -109,6 +112,46 @@ void Keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
+	case '1':
+		Player2[0].changeDrection(FRONTUP);
+		break;
+	case '2':
+		Player2[0].changeDrection(BACKUP);
+		break;
+	case '3':
+		Player2[0].changeDrection(LEFTUP);
+		break;
+	case '4':
+		Player2[0].changeDrection(RIGHTUP);
+		break;
+	case '5':
+		Player2[0].changeDrection(FRONTDOWN);
+		break;
+	case '6':
+		Player2[0].changeDrection(BACKDOWN);
+		break;
+	case '7':
+		Player2[0].changeDrection(LEFTDOWN);
+		break;
+	case '8':
+		Player2[0].changeDrection(RIGHTDOWN);
+		break;
+	case 'A':
+	case 'a':
+		Player2[0].changeDrection(FRONT);
+		break;
+	case 'S':
+	case 's':
+		Player2[0].changeDrection(BACK);
+		break;
+	case 'D':
+	case 'd':
+		Player2[0].changeDrection(LEFT);
+		break;
+	case 'F':
+	case 'f':
+		Player2[0].changeDrection(RIGHT);
+		break;
 	case 'Q':
 	case 'q':
 		glutLeaveMainLoop();
@@ -143,5 +186,22 @@ void InitVertices()
 		shapevertices[18 * i + 15] = cubeNormal[cubeNormalindex[3 * i + 2]][0];
 		shapevertices[18 * i + 16] = cubeNormal[cubeNormalindex[3 * i + 2]][1];
 		shapevertices[18 * i + 17] = cubeNormal[cubeNormalindex[3 * i + 2]][2];
+	}
+}
+
+void InitGame()
+{
+	for (int i = 0; i < mapSize; ++i) {
+		for (int j = 0; j < mapSize; ++j) {
+			Map[i][j].translateMatrix(-BOXSIZE * 19 + (j * 2.0 * BOXSIZE), BOXSIZE, -BOXSIZE * 19 + (i * 2.0 * BOXSIZE));
+		}
+	}
+
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		Player1[i].initPlayer(BOXSIZE, 0);
+	}
+
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		Player2[i].initPlayer(BOXSIZE, 1);
 	}
 }
