@@ -322,7 +322,7 @@ void Display()
 	Drawtext();
 	glViewport(300, 0, 1300, 900);
 	glm::mat4 transformMatrix = glm::mat4(1.0f);
-	glm::vec3 cameraPos = glm::vec3(5.0f, 6.0f, 8.0f); //--- 카메라 위치
+	glm::vec3 cameraPos = glm::vec3(cameraXYZ[0], cameraXYZ[1], cameraXYZ[2]); //--- 카메라 위치
 	glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 0.0f); //--- 카메라 바라보는 방향
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //--- 카메라 위쪽 방향
 	glm::mat4 projection = glm::mat4(1.0f);
@@ -463,6 +463,9 @@ void TimerFunc(int value)
 	else if (turn % 5 == 1) {
 		Card1.DistroyMap = true;
 	}
+
+	if (cameraRotateY)
+		rotateCamera();
 
 	check_collision();
 	glutTimerFunc(25, TimerFunc, 1);
@@ -637,6 +640,24 @@ void Keyboard(unsigned char key, int x, int y)
 	case 'C':
 		change_card();
 		break;
+	case 'R':
+		if (!cameraRotateMinus)
+		{
+			cameraRotateMinus = true;
+			cameraRotateY = true;
+		}
+		else
+			cameraRotateY = !cameraRotateY;
+		break;
+	case 'r':
+		if (cameraRotateMinus)
+		{
+			cameraRotateMinus = false;
+			cameraRotateY = true;
+		}
+		else
+			cameraRotateY = !cameraRotateY;
+		break;
 	case 'Q':
 	case 'q':
 		glutLeaveMainLoop();
@@ -809,4 +830,24 @@ void InitGame()
 	}
 
 	change_card();
+}
+
+void rotateCamera()
+{
+	if (cameraRotateMinus)
+	{
+		GLfloat tmpX = cameraXYZ[2] * glm::sin(glm::radians(-1.0f)) + cameraXYZ[0] * glm::cos(glm::radians(-1.0f));
+		GLfloat tmpZ = cameraXYZ[2] * glm::cos(glm::radians(-1.0f)) - cameraXYZ[0] * glm::sin(glm::radians(-1.0f));
+
+		cameraXYZ[0] = tmpX;
+		cameraXYZ[2] = tmpZ;
+	}
+	else
+	{
+		GLfloat tmpX = cameraXYZ[2] * glm::sin(glm::radians(1.0f)) + cameraXYZ[0] * glm::cos(glm::radians(1.0f));
+		GLfloat tmpZ = cameraXYZ[2] * glm::cos(glm::radians(1.0f)) - cameraXYZ[0] * glm::sin(glm::radians(1.0f));
+
+		cameraXYZ[0] = tmpX;
+		cameraXYZ[2] = tmpZ;
+	}
 }

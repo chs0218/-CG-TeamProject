@@ -124,6 +124,8 @@ int currentPlayer = 0;
 int turn = 0;
 int Player1Score = 0;
 int Player2Score = 0;
+GLfloat cameraXYZ[3] = { 5.0f, 6.0f, 8.0f };
+bool cameraRotateY = false, cameraRotateMinus = false;
 bool MoveTime = false;
 
 void Drawtext();
@@ -141,4 +143,5 @@ void InitBuffer_card();
 void InitTexture_card();
 void change_card();
 void check_collision();
+void rotateCamera();
 #endif
