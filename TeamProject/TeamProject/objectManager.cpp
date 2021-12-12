@@ -53,7 +53,7 @@ void objectManager::changeDirection(int Mode, int Dis) {
 void objectManager::initPlayer(GLfloat BoxSize, int index) {
 
 	// 주석 해제시 랜덤한 위치
-	/*if (index == 0)
+	if (index == 0)
 	{
 		x = uidRine(dre);
 		y = 0;
@@ -69,14 +69,14 @@ void objectManager::initPlayer(GLfloat BoxSize, int index) {
 		z = uidRow(dre) + 17;
 		size = BoxSize;
 		translateMatrix(-BoxSize * 19 + ((GLfloat)x * 2.0 * BoxSize), BoxSize * 3, -BoxSize * 19 + ((GLfloat)z * 2.0 * BoxSize));
-	}*/
+	}
 
 	// 중앙 위치(객체 이동 테스트하기 위함)
-	x = 10;
+	/*x = 10;
 	y = 0;
 	z = 10;
 	size = BoxSize;
-	translateMatrix(-BoxSize * 19 + ((GLfloat)x * 2.0 * BoxSize), BoxSize * 3, -BoxSize * 19 + ((GLfloat)z * 2.0 * BoxSize));
+	translateMatrix(-BoxSize * 19 + ((GLfloat)x * 2.0 * BoxSize), BoxSize * 3, -BoxSize * 19 + ((GLfloat)z * 2.0 * BoxSize));*/
 }
 
 void objectManager::setZero() {
@@ -322,6 +322,13 @@ void objectManager::move() {
 		}
 		if (dis == 0)
 			direction = STOP;
+		break;
+	case FALL:
+		if (frame < 36)
+		{
+			translateMatrix(0, -size, 0);
+			frame += 1;
+		}
 		break;
 	default:
 		break;

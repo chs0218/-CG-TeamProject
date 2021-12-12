@@ -11,7 +11,7 @@
 
 #define mapSize 20
 
-enum directionMode { STOP, FRONTUP, BACKUP, LEFTUP, RIGHTUP, FRONTDOWN, BACKDOWN, LEFTDOWN, RIGHTDOWN, FRONT, BACK, LEFT, RIGHT };
+enum directionMode { STOP, FRONTUP, BACKUP, LEFTUP, RIGHTUP, FRONTDOWN, BACKDOWN, LEFTDOWN, RIGHTDOWN, FRONT, BACK, LEFT, RIGHT, FALL};
 
 class objectManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스
 	GLfloat objectRGB[3]{0.0f};

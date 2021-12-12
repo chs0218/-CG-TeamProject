@@ -230,6 +230,10 @@ void Keyboard(unsigned char key, int x, int y)
 	case 'f':
 		Player2[0].changeDirection(RIGHT, 3);
 		break;
+	case 'G':
+	case 'g':
+		Player2[0].changeDirection(FALL, 0);
+		break;
 	case 'Q':
 	case 'q':
 		glutLeaveMainLoop();
