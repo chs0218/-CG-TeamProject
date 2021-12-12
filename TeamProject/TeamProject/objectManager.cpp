@@ -87,241 +87,356 @@ void objectManager::returnPlace() {
 	translateMatrix(-size * 19 + ((GLfloat)x * 2.0 * size), size * (3 + 2 * y), -size * 19 + ((GLfloat)z * 2.0 * size));
 }
 
-void objectManager::move() {
+void objectManager::setHeight(int height) {
+	y = height;
+}
+
+int objectManager::getX() {
+	return x;
+}
+
+int objectManager::getY() {
+	return y;
+}
+
+int objectManager::getZ() {
+	return z;
+}
+
+void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, int backbackHeight) {
 
 	switch (direction)
 	{
 	case STOP:
 		break;
 	case FRONTUP:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(size, -size, size);
-			rotateMatrix(-5.0, 1);
-			translateMatrix(-size, size, -size);
-			returnPlace();
-			frame += 1;
-		}
-
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			dis -= 1;
-			frame = 0;
-			y += 1;
-			z -= 1;
-			direction = FRONT;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(size, -size, size);
+				rotateMatrix(-5.0, 1);
+				translateMatrix(-size, size, -size);
+				returnPlace();
+				frame += 1;
+			}
+
+			else
+			{
+				dis -= 1;
+				frame = 0;
+				y += 1;
+				z -= 1;
+				if (frontfrontHeight > y)
+					direction = FRONTUP;
+				else if (frontfrontHeight < y)
+					direction = FRONTDOWN;
+				else
+					direction = FRONT;
+			}
 		}
 		break;
 	case BACKUP:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(size, -size, -size);
-			rotateMatrix(5.0, 1);
-			translateMatrix(-size, size, size);
-			returnPlace();
-			frame += 1;
-		}
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			dis -= 1;
-			frame = 0;
-			y += 1;
-			z += 1;
-			direction = BACK;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(size, -size, -size);
+				rotateMatrix(5.0, 1);
+				translateMatrix(-size, size, size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				dis -= 1;
+				frame = 0;
+				y += 1;
+				z += 1;
+				if (backbackHeight > y)
+					direction = BACKUP;
+				else if (backbackHeight < y)
+					direction = BACKDOWN;
+				else
+					direction = BACK;
+			}
 		}
 		break;
 	case LEFTUP:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(size, -size, size);
-			rotateMatrix(5.0, 3);
-			translateMatrix(-size, size, -size);
-			returnPlace();
-			frame += 1;
-		}
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			frame = 0;
-			dis -= 1;
-			x -= 1;
-			y += 1;
-			direction = LEFT;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(size, -size, size);
+				rotateMatrix(5.0, 3);
+				translateMatrix(-size, size, -size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				x -= 1;
+				y += 1;
+				direction = LEFT;
+			}
 		}
 		break;
 	case RIGHTUP:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(-size, -size, size);
-			rotateMatrix(-5.0, 3);
-			translateMatrix(size, size, -size);
-			returnPlace();
-			frame += 1;
-		}
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			frame = 0;
-			dis -= 1;
-			x += 1;
-			y += 1;
-			direction = RIGHT;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(-size, -size, size);
+				rotateMatrix(-5.0, 3);
+				translateMatrix(size, size, -size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				x += 1;
+				y += 1;
+				direction = RIGHT;
+			}
 		}
 		break;
 	case FRONTDOWN:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(size, size, size);
-			rotateMatrix(-5.0, 1);
-			translateMatrix(-size, -size, -size);
-			returnPlace();
-			frame += 1;
-		}
-
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			frame = 0;
-			dis -= 1;
-			y -= 1;
-			z -= 1;
-			direction = FRONT;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(size, size, size);
+				rotateMatrix(-5.0, 1);
+				translateMatrix(-size, -size, -size);
+				returnPlace();
+				frame += 1;
+			}
+
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				y -= 1;
+				z -= 1;
+				if (frontfrontHeight > y)
+					direction = FRONTUP;
+				else if (frontfrontHeight < y)
+					direction = FRONTDOWN;
+				else
+					direction = FRONT;
+			}
 		}
 		break;
 	case BACKDOWN:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(size, size, -size);
-			rotateMatrix(5.0, 1);
-			translateMatrix(-size, -size, size);
-			returnPlace();
-			frame += 1;
-		}
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			frame = 0;
-			dis -= 1;
-			y -= 1;
-			z += 1;
-			direction = BACK;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(size, size, -size);
+				rotateMatrix(5.0, 1);
+				translateMatrix(-size, -size, size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				y -= 1;
+				z += 1;
+				if (backbackHeight > y)
+					direction = BACKUP;
+				else if (backbackHeight < y)
+					direction = BACKDOWN;
+				else
+					direction = BACK;
+			}
 		}
 		break;
 	case LEFTDOWN:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(size, size, size);
-			rotateMatrix(5.0, 3);
-			translateMatrix(-size, -size, -size);
-			returnPlace();
-			frame += 1;
-		}
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			frame = 0;
-			dis -= 1;
-			x -= 1;
-			y -= 1;
-			direction = LEFT;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(size, size, size);
+				rotateMatrix(5.0, 3);
+				translateMatrix(-size, -size, -size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				x -= 1;
+				y -= 1;
+				direction = LEFT;
+			}
 		}
 		break;
 	case RIGHTDOWN:
-		if (frame < 36)
-		{
-			setZero();
-			translateMatrix(-size, size, size);
-			rotateMatrix(-5.0, 3);
-			translateMatrix(size, -size, -size);
-			returnPlace();
-			frame += 1;
-		}
+		if (dis == 0)
+			direction = STOP;
 		else
 		{
-			frame = 0;
-			dis -= 1;
-			x += 1;
-			y -= 1;
-			direction = RIGHT;
+			if (frame < 36)
+			{
+				setZero();
+				translateMatrix(-size, size, size);
+				rotateMatrix(-5.0, 3);
+				translateMatrix(size, -size, -size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				x += 1;
+				y -= 1;
+				direction = RIGHT;
+			}
 		}
 		break;
 	case FRONT:
-		if (frame < 18)
-		{
-			setZero();
-			translateMatrix(size, size, size);
-			rotateMatrix(-5.0, 1);
-			translateMatrix(-size, -size, -size);
-			returnPlace();
-			frame += 1;
-		}
-		else
-		{
-			frame = 0;
-			dis -= 1;
-			z -= 1;
-		}
 		if (dis == 0)
 			direction = STOP;
+		else
+		{
+			if (frame < 18)
+			{
+				if (frontHeight > y)
+					direction = FRONTUP;
+				else if (frontHeight < y)
+					direction = FRONTDOWN;
+				else
+				{
+					setZero();
+					translateMatrix(size, size, size);
+					rotateMatrix(-5.0, 1);
+					translateMatrix(-size, -size, -size);
+					returnPlace();
+					frame += 1;
+				}
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				z -= 1;
+				if (frontfrontHeight > y)
+					direction = FRONTUP;
+				else if (frontfrontHeight < y)
+					direction = FRONTDOWN;
+				else
+					direction = FRONT;
+			}
+		}
 		break;
 	case BACK:
-		if (frame < 18)
-		{
-			setZero();
-			translateMatrix(size, size, -size);
-			rotateMatrix(5.0, 1);
-			translateMatrix(-size, -size, size);
-			returnPlace();
-			frame += 1;
-		}
-		else
-		{
-			frame = 0;
-			dis -= 1;
-			z += 1;
-		}
 		if (dis == 0)
 			direction = STOP;
+		else
+		{
+			if (frame < 18)
+			{
+				if (backHeight > y)
+					direction = BACKUP;
+				else if (backHeight < y)
+					direction = BACKDOWN;
+				else
+				{
+					setZero();
+					translateMatrix(size, size, -size);
+					rotateMatrix(5.0, 1);
+					translateMatrix(-size, -size, size);
+					returnPlace();
+					frame += 1;
+				}
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				z += 1;
+
+				if (backbackHeight > y)
+					direction = BACKUP;
+				else if (backbackHeight < y)
+					direction = BACKDOWN;
+				else
+					direction = BACK;
+			}
+		}
 		break;
 	case LEFT:
-		if (frame < 18)
-		{
-			setZero();
-			translateMatrix(size, size, size);
-			rotateMatrix(5.0, 3);
-			translateMatrix(-size, -size, -size);
-			returnPlace();
-			frame += 1;
-		}
-		else
-		{
-			frame = 0;
-			dis -= 1;
-			x -= 1;
-		}
 		if (dis == 0)
 			direction = STOP;
+		else
+		{
+			if (frame < 18)
+			{
+				setZero();
+				translateMatrix(size, size, size);
+				rotateMatrix(5.0, 3);
+				translateMatrix(-size, -size, -size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				x -= 1;
+			}
+		}
 		break;
 	case RIGHT:
-		if (frame < 18)
-		{
-			setZero();
-			translateMatrix(-size, size, size);
-			rotateMatrix(-5.0, 3);
-			translateMatrix(size, -size, -size);
-			returnPlace();
-			frame += 1;
-		}
-		else
-		{
-			frame = 0;
-			dis -= 1;
-			x += 1;
-		}
 		if (dis == 0)
 			direction = STOP;
+		else
+		{
+			if (frame < 18)
+			{
+				setZero();
+				translateMatrix(-size, size, size);
+				rotateMatrix(-5.0, 3);
+				translateMatrix(size, -size, -size);
+				returnPlace();
+				frame += 1;
+			}
+			else
+			{
+				frame = 0;
+				dis -= 1;
+				x += 1;
+			}
+		}
 		break;
 	case FALL:
 		if (frame < 36)

@@ -32,13 +32,19 @@ public:
 
 	void changeDirection(int Mode, int Dis);
 
+	void setHeight(int height);
+
+	int getX();
+	int getY();
+	int getZ();
+
 	void setZero();
 
 	void returnPlace();
 
 	void initPlayer(GLfloat BoxSize, int index);
 
-	void move();
+	void move(int frontHeight, int backHeight, int frontfrontHeight, int backbackHeight);
 };
 
 class CardManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스

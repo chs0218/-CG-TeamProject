@@ -199,8 +199,8 @@ void Reshape(int w, int h)
 void TimerFunc(int value)
 {
 	for (int i = 0; i < PLAYERNUM; ++i) {
-		Player1[i].move();
-		Player2[i].move();
+		Player1[i].move(Map[Player1[i].getZ() - 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() - 2][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 2][Player1[i].getX()].getY());
+		Player2[i].move(Map[Player2[i].getZ() - 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() - 2][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 2][Player2[i].getX()].getY());
 	}
 
 	if (turn % 5 == 0) {
@@ -388,18 +388,36 @@ void InitVertices()
 
 void InitGame()
 {
+	int height = 0;
+	time_t timer = time(NULL);
+
+	std::default_random_engine dre((unsigned int)timer);
+	std::uniform_int_distribution<> uidHeight{ -1, 1 };
 	for (int i = 0; i < mapSize; ++i) {
 		for (int j = 0; j < mapSize; ++j) {
-			Map[i][j].translateMatrix(-BOXSIZE * 19 + (j * 2.0 * BOXSIZE), BOXSIZE, -BOXSIZE * 19 + (i * 2.0 * BOXSIZE));
+			Map[i][j].translateMatrix(-BOXSIZE * 19 + (j * 2.0 * BOXSIZE), BOXSIZE * (1 + 2 * height), -BOXSIZE * 19 + (i * 2.0 * BOXSIZE));
+			Map[i][j].setHeight(height);
+		}
+		if (i > 2 && i < mapSize - 2)
+		{
+			if (height > 1)
+				height -= 1;
+			else if (height < -1)
+				height += 1;
+			else
+				height += uidHeight(dre);
 		}
 	}
-
 	for (int i = 0; i < PLAYERNUM; ++i) {
 		Player1[i].initPlayer(BOXSIZE, 0);
+		Player1[i].setHeight(Map[Player1[i].getZ()][Player1[i].getX()].getY());
+		Player1[i].translateMatrix(0, BOXSIZE * 2 * Map[Player1[i].getZ()][Player1[i].getX()].getY(), 0);
 	}
 
 	for (int i = 0; i < PLAYERNUM; ++i) {
-		Player2[i].initPlayer(BOXSIZE, 1);
+		Player2[i].initPlayer(BOXSIZE, 2);
+		Player2[i].setHeight(Map[Player2[i].getZ()][Player2[i].getX()].getY());
+		Player2[i].translateMatrix(0, BOXSIZE * 2 * Map[Player2[i].getZ()][Player2[i].getX()].getY(), 0);
 	}
 
 	for (int i = 0; i < CARDNUM; ++i) {
