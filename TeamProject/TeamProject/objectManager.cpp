@@ -111,7 +111,7 @@ bool objectManager::checkDead() {
 	return dead;
 }
 
-void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, int backbackHeight) {
+void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, int backbackHeight, int currentHeight, int* PlayerScore) {
 
 	switch (direction)
 	{
@@ -473,8 +473,14 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 		}
 		break;
 	case FALL:
-		if (frame < 36)
+		if (frame == 0)
 		{
+			*PlayerScore += 1;
+			frame += 1;
+		}
+		else if (frame < 200)
+		{
+			y = -999;
 			translateMatrix(0, -size, 0);
 			frame += 1;
 		}
@@ -482,6 +488,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	default:
 		break;
 	}
+	if (currentHeight == -999)
+		direction = FALL;
 }
 
 CardManager::CardManager() {

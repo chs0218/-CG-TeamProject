@@ -49,7 +49,7 @@ public:
 
 	void initPlayer(GLfloat BoxSize, int index);
 
-	void move(int frontHeight, int backHeight, int frontfrontHeight, int backbackHeight);
+	void move(int frontHeight, int backHeight, int frontfrontHeight, int backbackHeight, int currentHeight,	int* PlayerScore);
 };
 
 class CardManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스

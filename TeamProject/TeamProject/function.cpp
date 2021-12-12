@@ -453,8 +453,14 @@ void Reshape(int w, int h)
 void TimerFunc(int value)
 {
 	for (int i = 0; i < PLAYERNUM; ++i) {
-		Player1[i].move(Map[Player1[i].getZ() - 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() - 2][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 2][Player1[i].getX()].getY());
-		Player2[i].move(Map[Player2[i].getZ() - 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() - 2][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 2][Player2[i].getX()].getY());
+		Player1[i].move(Map[Player1[i].getZ() - 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() - 2][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 2][Player1[i].getX()].getY(), Map[Player1[i].getZ()][Player1[i].getX()].getY(), &Player2Score);
+		Player2[i].move(Map[Player2[i].getZ() - 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() - 2][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 2][Player2[i].getX()].getY(), Map[Player2[i].getZ()][Player2[i].getX()].getY(), &Player1Score);
+	}
+
+	for (int i = 0; i < mapSize; ++i)
+	{
+		for (int j = 0; j < mapSize; ++j)
+			Map[i][j].move(0, 0, 0, 0, 0, &tmpScore);
 	}
 
 	if (turn % 5 == 0) {
@@ -601,23 +607,77 @@ void Keyboard(unsigned char key, int x, int y)
 		}
 		MoveTime = false;
 		break;
-	case '6': // 이상하게 버그남
+	case '6':
 		if (turn % 2 == 0) {
 			if (Card2.DistroyMap) {
 				int x;
-				int y;
-				std::cin >> x >> y;
-				Map[y][x].changeDirection(FALL, 99);
-				turn++;
+				int z;
+				while (true)
+				{
+					std::cout << "떨어트릴 위치를 입력해주세요(x, z): ";
+					std::cin >> x >> z;
+					if (x < 5 || x > 15 || z < 5 || z > 15)
+					{
+						std::cout << "5 < x < 15, 5 < z < 15만 가능합니다\n";
+						continue;
+					}
+					for (int i = -1; i < 2; ++i)
+					{
+						for (int j = -1; j < 2; ++j)
+						{
+							Map[z + i][x + j].changeDirection(FALL, 0);
+							for (int k = 0; k < PLAYERNUM; ++k)
+							{
+								if (Player1[k].getX() == x + j && Player1[k].getZ() == z + i)
+									Player1[k].changeDirection(FALL, 0);
+								if (Player2[k].getX() == x + j && Player2[k].getZ() == z + i)
+									Player2[k].changeDirection(FALL, 0);
+							}
+						}
+					}
+					turn++;
+					break;
+				}
+			}
+			else
+			{
+				std::cout << "카드가 없습니다\n";
 			}
 		}
 		else {
-			if (Card2.DistroyMap) {
+			if (Card1.DistroyMap) {
 				int x;
-				int y;
-				std::cin >> x >> y;
-				Map[y][x].changeDirection(FALL, 99);
-				turn++;
+				int z;
+				while (true)
+				{
+					std::cout << "떨어트릴 위치를 입력해주세요(x, z): ";
+					std::cin >> x >> z;
+					if (x < 5 || x > 15 || z < 5 || z > 15)
+					{
+						std::cout << "5 < x < 15, 5 < z < 15만 가능합니다\n";
+						continue;
+					}
+					for (int i = -1; i < 2; ++i)
+					{
+						for (int j = -1; j < 2; ++j)
+						{
+							Map[z + i][x + j].changeDirection(FALL, 0);
+							for (int k = 0; k < PLAYERNUM; ++k)
+							{
+								if (Player1[k].getX() == x + j && Player1[k].getZ() == z + i)
+									Player1[k].changeDirection(FALL, 0);
+								if (Player2[k].getX() == x + j && Player2[k].getZ() == z + i)
+									Player2[k].changeDirection(FALL, 0);
+							}
+						}
+					}
+					turn++;
+					break;
+				}
+			}
+			else
+			{
+				std::cout << "카드가 없습니다\n";
 			}
 		}
 		break;
@@ -800,6 +860,7 @@ void InitGame()
 	for (int i = 0; i < mapSize; ++i) {
 		for (int j = 0; j < mapSize; ++j) {
 			Map[i][j].translateMatrix(-BOXSIZE * 19 + (j * 2.0 * BOXSIZE), BOXSIZE * (1 + 2 * height), -BOXSIZE * 19 + (i * 2.0 * BOXSIZE));
+			Map[i][j].changeDirection(STOP, 0);
 			Map[i][j].setHeight(height);
 		}
 		if (i > 2 && i < mapSize - 2)

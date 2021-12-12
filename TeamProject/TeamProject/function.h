@@ -124,6 +124,7 @@ int currentPlayer = 0;
 int turn = 0;
 int Player1Score = 0;
 int Player2Score = 0;
+int tmpScore = 0;
 GLfloat cameraXYZ[3] = { 5.0f, 6.0f, 8.0f };
 bool cameraRotateY = false, cameraRotateMinus = false;
 bool MoveTime = false;
