@@ -43,6 +43,9 @@ int main(int argc, char** argv)
 	vShader = MakeVertexShader("vertex_object.glsl", 0);
 	fShader = MakeFragmentShader("fragment_object.glsl", 0);
 
+	vCardShader = MakeVertexShader("vertex_card.glsl", 0);
+	fCardShader = MakeFragmentShader("fragment_card.glsl", 0);
+
 	// shader Program
 	s_program = glCreateProgram();
 	glAttachShader(s_program, vShader);
@@ -50,8 +53,16 @@ int main(int argc, char** argv)
 	glLinkProgram(s_program);
 	checkCompileErrors(s_program, "PROGRAM");
 
+	s_Cardprogram = glCreateProgram();
+	glAttachShader(s_Cardprogram, vCardShader);
+	glAttachShader(s_Cardprogram, fCardShader);
+	glLinkProgram(s_Cardprogram);
+	checkCompileErrors(s_Cardprogram, "PROGRAM_card");
+
 	InitVertices();
 	InitBuffer();
+	InitBuffer_card();
+	InitTexture_card();
 	InitGame();
 	
 	// callback functions

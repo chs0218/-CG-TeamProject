@@ -9,6 +9,8 @@
 #include <random>
 #include <time.h>
 
+#define mapSize 20
+
 enum directionMode { STOP, FRONTUP, BACKUP, LEFTUP, RIGHTUP, FRONTDOWN, BACKDOWN, LEFTDOWN, RIGHTDOWN, FRONT, BACK, LEFT, RIGHT };
 
 class objectManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스
@@ -37,5 +39,20 @@ public:
 
 	void move();
 };
+
+class CardManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스
+	int cardMove[5]; //0(비어있음), 1, 2, 3, 4, 5(mapDown), 6(Object warp)
+	objectManager* MyPlayer;
+
+
+public:
+	CardManager(objectManager* Player, int firstCard[5]);
+	~CardManager() = default;
+
+	void cardInsert(int cardKind);
+	bool ObjectMove(int cardNum);
+};
+
+
 
 #endif

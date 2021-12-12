@@ -161,6 +161,8 @@
     <ClInclude Include="objectManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="fragment_card.glsl" />
+    <None Include="vertex_card.glsl" />
     <None Include="vertex_object.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

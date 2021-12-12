@@ -15,6 +15,74 @@ void InitBuffer()
 	glEnable(GL_DEPTH_TEST);
 }
 
+void InitBuffer_card()// 카드 전용 버퍼
+{
+	glGenVertexArrays(1, &CardVAO);
+	glGenBuffers(1, &CardVBO);
+
+	glBindVertexArray(CardVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, CardVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Card), Card, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	
+}
+
+void InitTexture_card() // 카드 전용 텍스트 버퍼
+{
+	int widthImage, heightImage, numberOfChannel;
+
+	glGenTextures(1, &textures[0]);
+	glBindTexture(GL_TEXTURE_2D, textures[0]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	unsigned char* data = stbi_load("Move1.jpg", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &textures[1]);
+	glBindTexture(GL_TEXTURE_2D, textures[1]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Move2.jpg", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &textures[2]);
+	glBindTexture(GL_TEXTURE_2D, textures[2]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Move3.jpg", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &textures[3]);
+	glBindTexture(GL_TEXTURE_2D, textures[3]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Move4.jpg", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glUseProgram(s_Cardprogram);
+	int tLocation = glGetUniformLocation(s_Cardprogram, "outTexture");
+	glUniform1i(tLocation, 0);
+}
+
 void Display()
 {
 	glm::mat4 transformMatrix = glm::mat4(1.0f);
@@ -86,6 +154,16 @@ void Display()
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].transform));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
+
+	glUseProgram(s_Cardprogram); // 임의로 그려본 카드
+	glm::mat4 submodel(1.0f);
+	modelLocation = glGetUniformLocation(s_Cardprogram, "modelTransform");
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(submodel));
+
+	glBindVertexArray(CardVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textures[0]);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glutSwapBuffers();
 }

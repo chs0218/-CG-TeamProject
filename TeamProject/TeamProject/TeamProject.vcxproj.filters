@@ -49,5 +49,11 @@
     <None Include="vertex_object.glsl">
       <Filter>소스 파일</Filter>
     </None>
+    <None Include="vertex_card.glsl">
+      <Filter>소스 파일</Filter>
+    </None>
+    <None Include="fragment_card.glsl">
+      <Filter>소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>

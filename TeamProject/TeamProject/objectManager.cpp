@@ -306,3 +306,42 @@ void objectManager::move() {
 		break;
 	}
 }
+
+CardManager::CardManager(objectManager* Player, int firstCard[5]) {
+	MyPlayer = Player;
+	for (int i = 0; i < 5; ++i) {
+		cardMove[i] = firstCard[i];
+	}
+
+}
+
+void CardManager::cardInsert(int cardKind) {
+	for (int i = 0; i < 5; ++i) {
+		if (cardMove[i] == 0) {
+			cardMove[i] = cardKind;
+			break;
+		}
+	}
+}
+
+bool CardManager::ObjectMove(int cardNum) {
+	if (cardNum == 1) {
+
+	}
+	else if (cardNum == 2){
+
+	}
+	else if (cardNum == 3) {
+
+	}
+	else if (cardNum == 4) {
+
+	}
+	else if (cardNum == 5) {
+
+	}
+	else if (cardNum == 6) {
+
+	}
+	return false;
+}

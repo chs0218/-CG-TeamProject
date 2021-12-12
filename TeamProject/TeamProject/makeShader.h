@@ -16,6 +16,10 @@ GLuint vShader;
 GLuint fShader;
 GLuint s_program;
 
+GLuint vCardShader;
+GLuint fCardShader;
+GLuint s_Cardprogram;
+
 void checkCompileErrors(unsigned int shader, std::string type);
 int MakeVertexShader(const char* vertexPath, int n);
 int MakeFragmentShader(const char* fragmentPath, int count);

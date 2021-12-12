@@ -8,14 +8,25 @@
 #include <glm/ext.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "objectManager.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 #define BOXSIZE 0.5
 
-#define mapSize 20
+#define CARDSIZE 0.1
 
 #define PLAYERNUM 3
 
 float shapevertices[216];
+
+GLfloat Card[] = {
+	-CARDSIZE, CARDSIZE, 0, 0, 1,
+	CARDSIZE, CARDSIZE, 0, 1, 1,
+	-CARDSIZE, -CARDSIZE, 0, 0, 0,
+	CARDSIZE, CARDSIZE, 0, 1, 1,
+	-CARDSIZE, -CARDSIZE, 0, 0, 0,
+	CARDSIZE, -CARDSIZE, 0, 1, 0,
+};
 
 GLfloat cubeDots[][3] = {
 	// ¿∞∏È√º
@@ -76,6 +87,11 @@ GLuint g_window_h = 900;
 GLuint ShapeVAO;
 GLuint ShapeVBO;
 
+GLuint CardVAO;
+GLuint CardVBO;
+
+unsigned int textures[5];
+
 objectManager Map[mapSize][mapSize];
 
 objectManager Player1[PLAYERNUM];
@@ -87,5 +103,7 @@ void Display();
 void Reshape(int w, int h);
 void TimerFunc(int value);
 void Keyboard(unsigned char key, int x, int y);
+void InitBuffer_card();
+void InitTexture_card();
 
 #endif
