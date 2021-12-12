@@ -1,10 +1,6 @@
 #include "function.h"
 #include <random>
 
-std::default_random_engine dreCard;
-std::uniform_int_distribution<> uid_card{ 1, 4 };
-std::uniform_int_distribution<> uid_cardDirection{ FRONT, RIGHT };
-
 void InitBuffer()
 {
 	glGenVertexArrays(1, &ShapeVAO);
@@ -350,12 +346,21 @@ void TimerFunc(int value)
 
 void Keyboard(unsigned char key, int x, int y)
 {
+	std::default_random_engine dreCard;
+	std::uniform_int_distribution<> uid_card{ 1, 4 };
+	std::uniform_int_distribution<> uid_cardDirection{ FRONT, FALL };
+
+	int uid_dis = uid_card(dreCard);
+	int uid_dir = uid_cardDirection(dreCard);
+
 	switch (key)
 	{
 	case '1': // 플레이어를 선택하고 이동 벽면 충돌 못함
 		if (turn % 2 == 0) {
 			if (MoveTime) {
-				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = FRONT;
+				Card2.cardInsert(uid_dis, uid_dir);
 				Player2[currentPlayer].changeDirection(Card2.getcardDirection(0), Card2.getCardMove(0));
 				Card2.cardDelete(0);
 				turn++;
@@ -364,7 +369,9 @@ void Keyboard(unsigned char key, int x, int y)
 		}
 		else {
 			if (MoveTime) {
-				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = BACK;
+				Card1.cardInsert(uid_dis, uid_dir);
 				Player1[currentPlayer].changeDirection(Card1.getcardDirection(0), Card1.getCardMove(0));
 				Card1.cardDelete(0);
 				turn++;
@@ -375,7 +382,9 @@ void Keyboard(unsigned char key, int x, int y)
 	case '2':
 		if (turn % 2 == 0) {
 			if (MoveTime) {
-				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = FRONT;
+				Card2.cardInsert(uid_dis, uid_dir);
 				Player2[currentPlayer].changeDirection(Card2.getcardDirection(1), Card2.getCardMove(1));
 				Card2.cardDelete(1);
 				turn++;
@@ -383,7 +392,9 @@ void Keyboard(unsigned char key, int x, int y)
 		}
 		else {
 			if (MoveTime) {
-				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = BACK;
+				Card1.cardInsert(uid_dis, uid_dir);
 				Player1[currentPlayer].changeDirection(Card1.getcardDirection(1), Card1.getCardMove(1));
 				Card1.cardDelete(1);
 				turn++;
@@ -394,7 +405,9 @@ void Keyboard(unsigned char key, int x, int y)
 	case '3':
 		if (turn % 2 == 0) {
 			if (MoveTime) {
-				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = FRONT;
+				Card2.cardInsert(uid_dis, uid_dir);
 				Player2[currentPlayer].changeDirection(Card2.getcardDirection(2), Card2.getCardMove(2));
 				Card2.cardDelete(2);
 				turn++;
@@ -402,7 +415,9 @@ void Keyboard(unsigned char key, int x, int y)
 		}
 		else {
 			if (MoveTime) {
-				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = BACK;
+				Card1.cardInsert(uid_dis, uid_dir);
 				Player1[currentPlayer].changeDirection(Card1.getcardDirection(2), Card1.getCardMove(2));
 				Card1.cardDelete(2);
 				turn++;
@@ -413,7 +428,9 @@ void Keyboard(unsigned char key, int x, int y)
 	case '4':
 		if (turn % 2 == 0) {
 			if (MoveTime) {
-				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = FRONT;
+				Card2.cardInsert(uid_dis, uid_dir);
 				Player2[currentPlayer].changeDirection(Card2.getcardDirection(3), Card2.getCardMove(3));
 				Card2.cardDelete(3);
 				turn++;
@@ -421,7 +438,9 @@ void Keyboard(unsigned char key, int x, int y)
 		}
 		else {
 			if (MoveTime) {
-				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = BACK;
+				Card1.cardInsert(uid_dis, uid_dir);
 				Player1[currentPlayer].changeDirection(Card1.getcardDirection(3), Card1.getCardMove(3));
 				Card1.cardDelete(3);
 				turn++;
@@ -432,7 +451,9 @@ void Keyboard(unsigned char key, int x, int y)
 	case '5':
 		if (turn % 2 == 0) {
 			if (MoveTime) {
-				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = FRONT;
+				Card2.cardInsert(uid_dis, uid_dir);
 				Player2[currentPlayer].changeDirection(Card2.getcardDirection(4), Card2.getCardMove(4));
 				Card2.cardDelete(4);
 				turn++;
@@ -440,7 +461,9 @@ void Keyboard(unsigned char key, int x, int y)
 		}
 		else {
 			if (MoveTime) {
-				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				if (uid_dir == FALL)
+					uid_dir = BACK;
+				Card1.cardInsert(uid_dis, uid_dir);
 				Player1[currentPlayer].changeDirection(Card1.getcardDirection(4), Card1.getCardMove(4));
 				Card1.cardDelete(4);
 				turn++;
@@ -525,8 +548,13 @@ void InitGame()
 	int height = 0;
 	time_t timer = time(NULL);
 
+	std::default_random_engine dreCard((unsigned int)timer);
+	std::uniform_int_distribution<> uid_card{ 1, 4 };
+	std::uniform_int_distribution<> uid_cardDirection{ FRONT, FALL };
+
 	std::default_random_engine dre((unsigned int)timer);
 	std::uniform_int_distribution<> uidHeight{ -1, 1 };
+
 	for (int i = 0; i < mapSize; ++i) {
 		for (int j = 0; j < mapSize; ++j) {
 			Map[i][j].translateMatrix(-BOXSIZE * 19 + (j * 2.0 * BOXSIZE), BOXSIZE * (1 + 2 * height), -BOXSIZE * 19 + (i * 2.0 * BOXSIZE));
@@ -558,8 +586,25 @@ void InitGame()
 		Card2.translateMatrix(i, -0.9 + CARDSIZE * i * 2, -0.9, 0.0);
 		Card1.translateMatrix(i, 0.9 - CARDSIZE * i * 2, 0.9, 0.0);
 	}
+
+	int uid_dis = uid_card(dreCard);
+	int uid_dir = uid_cardDirection(dreCard);
+
 	for (int i = 0; i < CARDNUM; ++i) {
-		Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
-		Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+		uid_dis = uid_card(dreCard);
+		uid_dir = uid_cardDirection(dreCard);
+
+		if (uid_dir == FALL)
+			uid_dir = BACK;
+
+		Card1.cardInsert(uid_dis, uid_dir);
+
+		uid_dis = uid_card(dreCard);
+		uid_dir = uid_cardDirection(dreCard);
+
+		if (uid_dir == FALL)
+			uid_dir = FRONT;
+
+		Card2.cardInsert(uid_dis, uid_dir);
 	}
 }
