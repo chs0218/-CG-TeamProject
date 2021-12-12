@@ -315,6 +315,12 @@ void InitTexture_card() // 카드 전용 텍스트 버퍼
 
 void Display()
 {
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glViewport(0, 780, 300, 100);
+	Drawtext();
+	glViewport(300, 0, 1300, 900);
 	glm::mat4 transformMatrix = glm::mat4(1.0f);
 	glm::vec3 cameraPos = glm::vec3(5.0f, 6.0f, 8.0f); //--- 카메라 위치
 	glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 0.0f); //--- 카메라 바라보는 방향
@@ -344,10 +350,6 @@ void Display()
 	projection = glm::perspective(glm::radians(65.0f), (float)g_window_w / (float)g_window_h, 0.1f, 50.0f);
 	projection = glm::translate(projection, glm::vec3(0.0, 0.0, -5.0));
 
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	glUseProgram(s_program);
 
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
@@ -356,7 +358,6 @@ void Display()
 	glUniform3f(lightColorLocation, 1.0, 1.0, 1.0);
 	glUniform3f(viewPosition, 0.0, 0.0, 4.0);
 	glUniform1f(ambientLocation, 0.3);
-
 
 	glBindVertexArray(ShapeVAO);
 	for (int i = 0; i < mapSize; ++i) {
@@ -392,17 +393,23 @@ void Display()
 	glUniform1f(ambientLocation, 0.3);
 
 	for (int i = 0; i < PLAYERNUM; ++i) {
-		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player1[i].transform));
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, objtextures[i]);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		if (!Player1[i].checkDead())
+		{
+			glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player1[i].transform));
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, objtextures[i]);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 	}
 
 	for (int i = 0; i < PLAYERNUM; ++i) {
-		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].transform));
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, objtextures[3 + i]);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		if (!Player2[i].checkDead())
+		{
+			glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].transform));
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, objtextures[3 + i]);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 	}
 
 	glUseProgram(s_Cardprogram); // 임의로 그려본 카드
@@ -457,6 +464,7 @@ void TimerFunc(int value)
 		Card1.DistroyMap = true;
 	}
 
+	check_collision();
 	glutTimerFunc(25, TimerFunc, 1);
 	glutPostRedisplay();
 }
@@ -625,6 +633,10 @@ void Keyboard(unsigned char key, int x, int y)
 		MoveTime = true;
 		currentPlayer = 2;
 		break;
+	case 'c':
+	case 'C':
+		change_card();
+		break;
 	case 'Q':
 	case 'q':
 		glutLeaveMainLoop();
@@ -680,18 +692,90 @@ void InitTextureVertices()
 	}
 }
 
-void InitGame()
+void change_card()
 {
-	int height = 0;
 	time_t timer = time(NULL);
-
 	std::default_random_engine dreCard((unsigned int)timer);
 	std::uniform_int_distribution<> uid_card{ 1, 4 };
 	std::uniform_int_distribution<> uid_cardDirection{ FRONT, FALL };
 
+	int uid_dis = uid_card(dreCard);
+	int uid_dir = uid_cardDirection(dreCard);
+
+	for (int i = 0; i < CARDNUM; ++i) {
+		Card1.cardDelete(i);
+		Card2.cardDelete(i);
+
+		uid_dis = uid_card(dreCard);
+		uid_dir = uid_cardDirection(dreCard);
+
+		if (uid_dir == FALL)
+			uid_dir = BACK;
+		
+		Card1.cardInsert(uid_dis, uid_dir);
+
+		uid_dis = uid_card(dreCard);
+		uid_dir = uid_cardDirection(dreCard);
+
+		if (uid_dir == FALL)
+			uid_dir = FRONT;
+
+		Card2.cardInsert(uid_dis, uid_dir);
+	}
+}
+
+void Drawtext()
+{
+	glUseProgram(s_Textprogram);
+
+	glRasterPos3f(-0.5, 0.0, 0.0);
+	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, Player1Score + 48);
+	glRasterPos3f(0.5, 0.0, 0.0);
+	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, Player2Score + 48);
+	glRasterPos3f(0.0, 0.0, 0.0);
+	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, ':');
+}
+
+void check_collision()
+{
+	if (turn % 2 == 0)
+	{
+		for (int i = 0; i < PLAYERNUM; ++i)
+		{
+			for (int j = 0; j < PLAYERNUM; ++j)
+			{
+				if (!Player1[i].checkDead() && !Player2[j].checkDead() && Player1[i].getX() == Player2[j].getX() && Player1[i].getZ() == Player2[j].getZ())
+				{
+					Player1Score += 1;
+					Player2[j].die();
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < PLAYERNUM; ++i)
+		{
+			for (int j = 0; j < PLAYERNUM; ++j)
+			{
+				if (!Player2[i].checkDead() && !Player1[j].checkDead() && Player1[i].getX() == Player2[j].getX() && Player1[i].getZ() == Player2[j].getZ())
+				{
+					Player2Score += 1;
+					Player1[j].die();
+				}
+			}
+		}
+	}
+}
+
+void InitGame()
+{
+	int height = 0;
+
+	time_t timer = time(NULL);
+
 	std::default_random_engine dre((unsigned int)timer);
 	std::uniform_int_distribution<> uidHeight{ -1, 1 };
-
 	for (int i = 0; i < mapSize; ++i) {
 		for (int j = 0; j < mapSize; ++j) {
 			Map[i][j].translateMatrix(-BOXSIZE * 19 + (j * 2.0 * BOXSIZE), BOXSIZE * (1 + 2 * height), -BOXSIZE * 19 + (i * 2.0 * BOXSIZE));
@@ -724,24 +808,5 @@ void InitGame()
 		Card1.translateMatrix(i, 0.9 - CARDSIZE * i * 2, 0.9, 0.0);
 	}
 
-	int uid_dis = uid_card(dreCard);
-	int uid_dir = uid_cardDirection(dreCard);
-
-	for (int i = 0; i < CARDNUM; ++i) {
-		uid_dis = uid_card(dreCard);
-		uid_dir = uid_cardDirection(dreCard);
-
-		if (uid_dir == FALL)
-			uid_dir = BACK;
-
-		Card1.cardInsert(uid_dis, uid_dir);
-
-		uid_dis = uid_card(dreCard);
-		uid_dir = uid_cardDirection(dreCard);
-
-		if (uid_dir == FALL)
-			uid_dir = FRONT;
-
-		Card2.cardInsert(uid_dis, uid_dir);
-	}
+	change_card();
 }

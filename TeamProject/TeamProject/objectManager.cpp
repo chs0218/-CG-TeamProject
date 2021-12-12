@@ -103,6 +103,14 @@ int objectManager::getZ() {
 	return z;
 }
 
+void objectManager::die() {
+	dead = true;
+}
+
+bool objectManager::checkDead() {
+	return dead;
+}
+
 void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, int backbackHeight) {
 
 	switch (direction)

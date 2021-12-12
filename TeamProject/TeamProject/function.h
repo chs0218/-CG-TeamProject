@@ -97,7 +97,7 @@ unsigned int cubeNormalindex[] = {
 	5, 5, 5
 };
 
-GLuint g_window_w = 1400;
+GLuint g_window_w = 1600;
 GLuint g_window_h = 900;
 GLuint ShapeVAO;
 GLuint ShapeVBO;
@@ -122,9 +122,11 @@ CardManager Card2;
 
 int currentPlayer = 0;
 int turn = 0;
+int Player1Score = 0;
+int Player2Score = 0;
 bool MoveTime = false;
 
-
+void Drawtext();
 void InitBuffer();
 void InitVertices();
 void InitTextureVertices();
@@ -137,5 +139,6 @@ void InitBuffer_obj();
 void InitTexture_obj();
 void InitBuffer_card();
 void InitTexture_card();
-
+void change_card();
+void check_collision();
 #endif

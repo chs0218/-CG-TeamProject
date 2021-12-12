@@ -18,6 +18,7 @@ class objectManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스
 	GLfloat objectRGB[3]{0.0f};
 	GLfloat size = 0.5;
 	int direction = STOP, x = 0, y = 0, z = 0, dis = 0, frame = 0;
+	bool dead = false;
 public:
 	glm::mat4 transform = glm::mat4(1.0f);
 
@@ -37,6 +38,10 @@ public:
 	int getX();
 	int getY();
 	int getZ();
+
+	bool checkDead();
+
+	void die();
 
 	void setZero();
 

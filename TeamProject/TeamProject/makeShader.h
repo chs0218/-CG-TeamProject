@@ -22,8 +22,12 @@ GLuint fCardShader;
 GLuint vObjShader;
 GLuint fObjShader;
 
+GLuint vTextShader;
+GLuint fTextShader;
+
 GLuint s_Objprogram;
 GLuint s_Cardprogram;
+GLuint s_Textprogram;
 
 void checkCompileErrors(unsigned int shader, std::string type);
 int MakeVertexShader(const char* vertexPath, int n);

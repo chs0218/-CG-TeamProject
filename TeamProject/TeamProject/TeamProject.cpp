@@ -49,6 +49,9 @@ int main(int argc, char** argv)
 	vObjShader = MakeVertexShader("vertex_texture_object.glsl", 0);
 	fObjShader = MakeFragmentShader("fragment_texture_object.glsl", 0);
 
+	vTextShader = MakeVertexShader("vertex_text.glsl", 0);
+	fTextShader = MakeFragmentShader("fragment_text.glsl", 0);
+
 	// shader Program
 	s_program = glCreateProgram();
 	glAttachShader(s_program, vShader);
@@ -68,6 +71,12 @@ int main(int argc, char** argv)
 	glLinkProgram(s_Objprogram);
 	checkCompileErrors(s_Objprogram, "PROGRAM_obj");
 
+	s_Textprogram = glCreateProgram();
+	glAttachShader(s_Textprogram, vTextShader);
+	glAttachShader(s_Textprogram, fTextShader);
+	glLinkProgram(s_Textprogram);
+
+	checkCompileErrors(s_Objprogram, "PROGRAM_obj");
 	InitVertices();
 	InitTextureVertices();
 	InitBuffer();
