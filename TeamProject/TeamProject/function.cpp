@@ -191,44 +191,44 @@ void Keyboard(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case '1':
-		Player2[0].changeDrection(FRONTUP);
+		Player2[0].changeDirection(FRONTUP, 1);
 		break;
 	case '2':
-		Player2[0].changeDrection(BACKUP);
+		Player2[0].changeDirection(BACKUP, 2);
 		break;
 	case '3':
-		Player2[0].changeDrection(LEFTUP);
+		Player2[0].changeDirection(LEFTUP, 3);
 		break;
 	case '4':
-		Player2[0].changeDrection(RIGHTUP);
+		Player2[0].changeDirection(RIGHTUP, 4);
 		break;
 	case '5':
-		Player2[0].changeDrection(FRONTDOWN);
+		Player2[0].changeDirection(FRONTDOWN, 3);
 		break;
 	case '6':
-		Player2[0].changeDrection(BACKDOWN);
+		Player2[0].changeDirection(BACKDOWN, 3);
 		break;
 	case '7':
-		Player2[0].changeDrection(LEFTDOWN);
+		Player2[0].changeDirection(LEFTDOWN, 3);
 		break;
 	case '8':
-		Player2[0].changeDrection(RIGHTDOWN);
+		Player2[0].changeDirection(RIGHTDOWN, 3);
 		break;
 	case 'A':
 	case 'a':
-		Player2[0].changeDrection(FRONT);
+		Player2[0].changeDirection(FRONT, 3);
 		break;
 	case 'S':
 	case 's':
-		Player2[0].changeDrection(BACK);
+		Player2[0].changeDirection(BACK, 3);
 		break;
 	case 'D':
 	case 'd':
-		Player2[0].changeDrection(LEFT);
+		Player2[0].changeDirection(LEFT, 3);
 		break;
 	case 'F':
 	case 'f':
-		Player2[0].changeDrection(RIGHT);
+		Player2[0].changeDirection(RIGHT, 3);
 		break;
 	case 'Q':
 	case 'q':

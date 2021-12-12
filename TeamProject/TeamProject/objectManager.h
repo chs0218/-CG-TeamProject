@@ -16,7 +16,7 @@ enum directionMode { STOP, FRONTUP, BACKUP, LEFTUP, RIGHTUP, FRONTDOWN, BACKDOWN
 class objectManager { //카드 혹은 장판의 오브젝트 애니매이션을 관리할 클래스
 	GLfloat objectRGB[3]{0.0f};
 	GLfloat size = 0.5;
-	int direction = STOP, x = 0, y = 0, z = 0, frame = 0;
+	int direction = STOP, x = 0, y = 0, z = 0, dis = 0, frame = 0;
 public:
 	glm::mat4 transform = glm::mat4(1.0f);
 
@@ -29,7 +29,7 @@ public:
 
 	void scaleMatrix(GLfloat rateX, GLfloat rateY, GLfloat rateZ);
 
-	void changeDrection(int Mode);
+	void changeDirection(int Mode, int Dis);
 
 	void setZero();
 

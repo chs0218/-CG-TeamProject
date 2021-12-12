@@ -42,9 +42,12 @@ void objectManager::scaleMatrix(GLfloat rateX, GLfloat rateY, GLfloat rateZ) {
 	transform = sc * transform;
 }
 
-void objectManager::changeDrection(int Mode) {
-	if(direction == STOP)
+void objectManager::changeDirection(int Mode, int Dis) {
+	if (direction == STOP)
+	{
 		direction = Mode;
+		dis = Dis;
+	}
 }
 
 void objectManager::initPlayer(GLfloat BoxSize, int index) {
@@ -100,12 +103,14 @@ void objectManager::move() {
 			returnPlace();
 			frame += 1;
 		}
+
 		else
 		{
+			dis -= 1;
 			frame = 0;
-			direction = STOP;
 			y += 1;
 			z -= 1;
+			direction = FRONT;
 		}
 		break;
 	case BACKUP:
@@ -120,10 +125,11 @@ void objectManager::move() {
 		}
 		else
 		{
+			dis -= 1;
 			frame = 0;
-			direction = STOP;
 			y += 1;
 			z += 1;
+			direction = BACK;
 		}
 		break;
 	case LEFTUP:
@@ -139,9 +145,10 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			x -= 1;
 			y += 1;
+			direction = LEFT;
 		}
 		break;
 	case RIGHTUP:
@@ -157,9 +164,10 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			x += 1;
 			y += 1;
+			direction = RIGHT;
 		}
 		break;
 	case FRONTDOWN:
@@ -172,12 +180,14 @@ void objectManager::move() {
 			returnPlace();
 			frame += 1;
 		}
+
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			y -= 1;
 			z -= 1;
+			direction = FRONT;
 		}
 		break;
 	case BACKDOWN:
@@ -193,9 +203,10 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			y -= 1;
 			z += 1;
+			direction = BACK;
 		}
 		break;
 	case LEFTDOWN:
@@ -211,9 +222,10 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			x -= 1;
 			y -= 1;
+			direction = LEFT;
 		}
 		break;
 	case RIGHTDOWN:
@@ -229,9 +241,10 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			x += 1;
 			y -= 1;
+			direction = RIGHT;
 		}
 		break;
 	case FRONT:
@@ -247,9 +260,11 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			z -= 1;
 		}
+		if (dis == 0)
+			direction = STOP;
 		break;
 	case BACK:
 		if (frame < 18)
@@ -264,9 +279,11 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			z += 1;
 		}
+		if (dis == 0)
+			direction = STOP;
 		break;
 	case LEFT:
 		if (frame < 18)
@@ -281,9 +298,11 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			x -= 1;
 		}
+		if (dis == 0)
+			direction = STOP;
 		break;
 	case RIGHT:
 		if (frame < 18)
@@ -298,9 +317,11 @@ void objectManager::move() {
 		else
 		{
 			frame = 0;
-			direction = STOP;
+			dis -= 1;
 			x += 1;
 		}
+		if (dis == 0)
+			direction = STOP;
 		break;
 	default:
 		break;
