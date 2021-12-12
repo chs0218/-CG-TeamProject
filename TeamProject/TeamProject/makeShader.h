@@ -18,6 +18,11 @@ GLuint s_program;
 
 GLuint vCardShader;
 GLuint fCardShader;
+
+GLuint vObjShader;
+GLuint fObjShader;
+
+GLuint s_Objprogram;
 GLuint s_Cardprogram;
 
 void checkCompileErrors(unsigned int shader, std::string type);

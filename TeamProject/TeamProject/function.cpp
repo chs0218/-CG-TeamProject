@@ -16,6 +16,102 @@ void InitBuffer()
 	glEnable(GL_DEPTH_TEST);
 }
 
+void InitBuffer_obj()
+{
+	glGenVertexArrays(1, &ObjVAO);
+	glGenBuffers(1, &ObjVBO);
+	glGenBuffers(1, &ObjTexVBO);
+
+	glBindVertexArray(ObjVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, ObjVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(shapevertices), shapevertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, ObjTexVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(texturevertices), texturevertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(2);
+}
+
+void InitTexture_obj()
+{
+	int widthImage, heightImage, numberOfChannel;
+
+	glGenTextures(1, &objtextures[0]);
+	glBindTexture(GL_TEXTURE_2D, objtextures[0]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	unsigned char* data = stbi_load("Player1_A.png", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &objtextures[1]);
+	glBindTexture(GL_TEXTURE_2D, objtextures[1]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Player1_S.png", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &objtextures[2]);
+	glBindTexture(GL_TEXTURE_2D, objtextures[2]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Player1_D.png", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &objtextures[3]);
+	glBindTexture(GL_TEXTURE_2D, objtextures[3]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Player2_A.png", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &objtextures[4]);
+	glBindTexture(GL_TEXTURE_2D, objtextures[4]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Player2_S.png", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glGenTextures(1, &objtextures[5]);
+	glBindTexture(GL_TEXTURE_2D, objtextures[5]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("Player2_D.png", &widthImage, &heightImage, &numberOfChannel, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+
+	glUseProgram(s_Objprogram);
+	int tLocation = glGetUniformLocation(s_Objprogram, "outTexture");
+	glUniform1i(tLocation, 0);
+}
+
 void InitBuffer_card()// 카드 전용 버퍼
 {
 	glGenVertexArrays(1, &CardVAO);
@@ -213,8 +309,9 @@ void InitTexture_card() // 카드 전용 텍스트 버퍼
 
 	glUseProgram(s_Cardprogram);
 	int tLocation = glGetUniformLocation(s_Cardprogram, "outTexture");
-	glUniform1i(tLocation, 0);
+	glUniform1i(tLocation, 1);
 }
+
 
 void Display()
 {
@@ -276,15 +373,35 @@ void Display()
 		}
 	}
 
+	glUseProgram(s_Objprogram);
+	glBindVertexArray(ObjVAO);
+
+	viewLocation = glGetUniformLocation(s_Objprogram, "viewTransform");	//---뷰변환행렬
+	projectionLocation = glGetUniformLocation(s_Objprogram, "projectionTransform");	//---투영변환행렬
+	lightPosLocation = glGetUniformLocation(s_Objprogram, "lightPos");		//---조명위치
+	lightColorLocation = glGetUniformLocation(s_Objprogram, "lightColor"); //---조명색깔
+	viewPosition = glGetUniformLocation(s_Objprogram, "viewPos");	//--- 카메라 위치
+	modelLocation = glGetUniformLocation(s_Objprogram, "modelTransform");	//---모델변환행렬
+	ambientLocation = glGetUniformLocation(s_Objprogram, "ambient");	//---빛 세기
+
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &projection[0][0]);
+	glUniform3f(lightPosLocation, 0.0, 3.0, 8.0);
+	glUniform3f(lightColorLocation, 1.0, 1.0, 1.0);
+	glUniform3f(viewPosition, 0.0, 0.0, 4.0);
+	glUniform1f(ambientLocation, 0.3);
+
 	for (int i = 0; i < PLAYERNUM; ++i) {
-		glUniform3f(objColorLocation, 0.3, 0.3, 0.3);
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player1[i].transform));
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, objtextures[i]);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 
 	for (int i = 0; i < PLAYERNUM; ++i) {
-		glUniform3f(objColorLocation, 0.8, 0.8, 0.8);
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].transform));
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, objtextures[3 + i]);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 
@@ -297,7 +414,7 @@ void Display()
 		int cardDirection = Card1.getcardDirection(i);
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Card1.transform[i]));
 		glBindVertexArray(CardVAO);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE1);
 		if (cardMove != 0) {
 			glBindTexture(GL_TEXTURE_2D, textures[(cardDirection - 9) * 4 + cardMove - 1]);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -307,7 +424,7 @@ void Display()
 		cardDirection = Card2.getcardDirection(i);
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Card2.transform[i]));
 		glBindVertexArray(CardVAO);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE1);
 		if (cardMove != 0) {
 			glBindTexture(GL_TEXTURE_2D, textures[(cardDirection - 9) * 4 + cardMove - 1]);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -542,6 +659,24 @@ void InitVertices()
 		shapevertices[18 * i + 15] = cubeNormal[cubeNormalindex[3 * i + 2]][0];
 		shapevertices[18 * i + 16] = cubeNormal[cubeNormalindex[3 * i + 2]][1];
 		shapevertices[18 * i + 17] = cubeNormal[cubeNormalindex[3 * i + 2]][2];
+	}
+}
+void InitTextureVertices()
+{
+	for (int i = 0; i < 6; ++i)
+	{
+		texturevertices[12 * i] = textureST[textureindex[0]][0];
+		texturevertices[12 * i + 1] = textureST[textureindex[0]][1];
+		texturevertices[12 * i + 2] = textureST[textureindex[1]][0];
+		texturevertices[12 * i + 3] = textureST[textureindex[1]][1];
+		texturevertices[12 * i + 4] = textureST[textureindex[2]][0];
+		texturevertices[12 * i + 5] = textureST[textureindex[2]][1];
+		texturevertices[12 * i + 6] = textureST[textureindex[3]][0];
+		texturevertices[12 * i + 7] = textureST[textureindex[3]][1];
+		texturevertices[12 * i + 8] = textureST[textureindex[4]][0];
+		texturevertices[12 * i + 9] = textureST[textureindex[4]][1];
+		texturevertices[12 * i + 10] = textureST[textureindex[5]][0];
+		texturevertices[12 * i + 11] = textureST[textureindex[5]][1];
 	}
 }
 

@@ -40,6 +40,21 @@ GLfloat cubeDots[][3] = {
 	{BOXSIZE, BOXSIZE, -BOXSIZE}
 };
 
+GLfloat textureST[][2] = {
+	{0.0, 0.0},
+	{1.0, 0.0},
+	{0.0, 1.0},
+	{1.0, 1.0},
+	{0.5, 1.0}
+};
+
+unsigned int textureindex[] = {
+	// ¿∞∏È√º
+	2, 0, 1,
+	2, 1, 3
+};
+
+float texturevertices[72];
 
 GLfloat cubeNormal[][3] = {
 	{0.0, 0.0, 1.0},
@@ -54,8 +69,8 @@ unsigned int cubeShapeindex[] = {
 	// ¿∞∏È√º
 	0, 1, 2,
 	0, 2, 3,
-	4, 6, 5,
-	4, 7, 6,
+	7, 6, 5,
+	7, 5, 4,
 	3, 2, 6,
 	3, 6, 7,
 	4, 5, 1,
@@ -87,10 +102,15 @@ GLuint g_window_h = 900;
 GLuint ShapeVAO;
 GLuint ShapeVBO;
 
+GLuint ObjVAO;
+GLuint ObjVBO;
+GLuint ObjTexVBO;
+
 GLuint CardVAO;
 GLuint CardVBO;
 
 unsigned int textures[16];
+unsigned int objtextures[6];
 
 objectManager Map[mapSize][mapSize];
 
@@ -106,11 +126,15 @@ bool MoveTime = false;
 
 
 void InitBuffer();
+void InitVertices();
+void InitTextureVertices();
 void InitGame();
 void Display();
 void Reshape(int w, int h);
 void TimerFunc(int value);
 void Keyboard(unsigned char key, int x, int y);
+void InitBuffer_obj();
+void InitTexture_obj();
 void InitBuffer_card();
 void InitTexture_card();
 
