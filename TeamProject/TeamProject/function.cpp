@@ -346,7 +346,9 @@ void TimerFunc(int value)
 
 void Keyboard(unsigned char key, int x, int y)
 {
-	std::default_random_engine dreCard;
+	time_t timer = time(NULL);
+
+	std::default_random_engine dreCard((unsigned int)timer);
 	std::uniform_int_distribution<> uid_card{ 1, 4 };
 	std::uniform_int_distribution<> uid_cardDirection{ FRONT, FALL };
 

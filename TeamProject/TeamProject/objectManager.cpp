@@ -112,6 +112,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case FRONTUP:
 		if (dis == 0)
 			direction = STOP;
+		else if (z == 0)
+			direction = STOP;
 		else
 		{
 			if (frame < 36)
@@ -142,6 +144,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case BACKUP:
 		if (dis == 0)
 			direction = STOP;
+		else if (z == mapSize - 1)
+			direction = STOP;
 		else
 		{
 			if (frame < 36)
@@ -171,6 +175,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case LEFTUP:
 		if (dis == 0)
 			direction = STOP;
+		else if (x == 0)
+			direction = STOP;
 		else
 		{
 			if (frame < 36)
@@ -195,6 +201,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case RIGHTUP:
 		if (dis == 0)
 			direction = STOP;
+		else if (x == mapSize - 1)
+			direction = STOP;
 		else
 		{
 			if (frame < 36)
@@ -218,6 +226,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 		break;
 	case FRONTDOWN:
 		if (dis == 0)
+			direction = STOP;
+		else if (z == 0)
 			direction = STOP;
 		else
 		{
@@ -249,6 +259,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case BACKDOWN:
 		if (dis == 0)
 			direction = STOP;
+		else if (z == mapSize - 1)
+			direction = STOP;
 		else
 		{
 			if (frame < 36)
@@ -278,6 +290,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case LEFTDOWN:
 		if (dis == 0)
 			direction = STOP;
+		else if (x == 0)
+			direction = STOP;
 		else
 		{
 			if (frame < 36)
@@ -301,6 +315,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 		break;
 	case RIGHTDOWN:
 		if (dis == 0)
+			direction = STOP;
+		else if (x == mapSize - 1)
 			direction = STOP;
 		else
 		{
@@ -326,6 +342,10 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case FRONT:
 		if (dis == 0)
 			direction = STOP;
+
+		else if (z == 0)
+			direction = STOP;
+
 		else
 		{
 			if (frame < 18)
@@ -360,6 +380,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 		break;
 	case BACK:
 		if (dis == 0)
+			direction = STOP;
+		else if (z == mapSize - 1)
 			direction = STOP;
 		else
 		{
@@ -397,6 +419,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 	case LEFT:
 		if (dis == 0)
 			direction = STOP;
+		else if (x == 0)
+			direction = STOP;
 		else
 		{
 			if (frame < 18)
@@ -418,6 +442,8 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 		break;
 	case RIGHT:
 		if (dis == 0)
+			direction = STOP;
+		else if (x == mapSize - 1)
 			direction = STOP;
 		else
 		{
