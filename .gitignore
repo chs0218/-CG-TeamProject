@@ -1,2 +1,10 @@
 
 *.ipch
+*.db
+*.obj
+*.ilk
+*.log
+*.tlog
+*.idb
+*.pdb
+TeamProject/.vs/TeamProject/v16/.suo

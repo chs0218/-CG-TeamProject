@@ -90,7 +90,7 @@ GLuint ShapeVBO;
 GLuint CardVAO;
 GLuint CardVBO;
 
-unsigned int textures[5];
+unsigned int textures[16];
 
 objectManager Map[mapSize][mapSize];
 
