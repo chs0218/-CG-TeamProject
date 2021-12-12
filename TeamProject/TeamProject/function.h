@@ -97,6 +97,14 @@ objectManager Map[mapSize][mapSize];
 objectManager Player1[PLAYERNUM];
 objectManager Player2[PLAYERNUM];
 
+CardManager Card1;
+CardManager Card2;
+
+int currentPlayer = 0;
+int turn = 0;
+bool MoveTime = false;
+
+
 void InitBuffer();
 void InitGame();
 void Display();

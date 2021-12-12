@@ -335,41 +335,41 @@ void objectManager::move() {
 	}
 }
 
-CardManager::CardManager(objectManager* Player, int firstCard[5]) {
-	MyPlayer = Player;
-	for (int i = 0; i < 5; ++i) {
-		cardMove[i] = firstCard[i];
+CardManager::CardManager() {
+	for (int i = 0; i < CARDNUM; ++i) {
+		transform[i] = glm::mat4(1.0);
 	}
+	DistroyMap = true;
 
 }
 
-void CardManager::cardInsert(int cardKind) {
-	for (int i = 0; i < 5; ++i) {
+void CardManager::cardInsert(int cardKind, int direction) {
+	for (int i = 0; i < CARDNUM; ++i) {
 		if (cardMove[i] == 0) {
 			cardMove[i] = cardKind;
+			cardDirection[i] = direction;
 			break;
 		}
 	}
 }
 
-bool CardManager::ObjectMove(int cardNum) {
-	if (cardNum == 1) {
+void CardManager::cardDelete(int index) {
+	cardMove[index] = 0;
+	cardDirection[index] = -1;
+}
 
-	}
-	else if (cardNum == 2){
+void CardManager::translateMatrix(int index, GLfloat x, GLfloat y, GLfloat z) {
+	glm::mat4 tr(1.0f);
 
-	}
-	else if (cardNum == 3) {
+	tr = glm::translate(tr, glm::vec3(x, y, z));
 
-	}
-	else if (cardNum == 4) {
+	transform[index] = tr * transform[index];
+}
 
-	}
-	else if (cardNum == 5) {
+int CardManager::getCardMove(int index) {
+	return cardMove[index];
+}
 
-	}
-	else if (cardNum == 6) {
-
-	}
-	return false;
+int CardManager::getcardDirection(int index) {
+	return cardDirection[index];
 }

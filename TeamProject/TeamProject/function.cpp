@@ -1,4 +1,9 @@
 #include "function.h"
+#include <random>
+
+std::default_random_engine dreCard;
+std::uniform_int_distribution<> uid_card{ 1, 4 };
+std::uniform_int_distribution<> uid_cardDirection{ FRONT, RIGHT };
 
 void InitBuffer()
 {
@@ -156,14 +161,29 @@ void Display()
 	}
 
 	glUseProgram(s_Cardprogram); // 임의로 그려본 카드
-	glm::mat4 submodel(1.0f);
 	modelLocation = glGetUniformLocation(s_Cardprogram, "modelTransform");
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(submodel));
 
-	glBindVertexArray(CardVAO);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	for (int i = 0; i < CARDNUM; ++i) {
+		int cardMove1 = Card1.getCardMove(i);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Card1.transform[i]));
+		glBindVertexArray(CardVAO);
+		glActiveTexture(GL_TEXTURE0);
+		if (cardMove1 != 0) {
+			glBindTexture(GL_TEXTURE_2D, textures[cardMove1 - 1]);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		}
+
+		int cardMove2 = Card2.getCardMove(i);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Card2.transform[i]));
+		glBindVertexArray(CardVAO);
+		glActiveTexture(GL_TEXTURE0);
+		if (cardMove2 != 0) {
+			glBindTexture(GL_TEXTURE_2D, textures[cardMove2 - 1]);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		}
+	}
+	
 
 	glutSwapBuffers();
 }
@@ -182,6 +202,14 @@ void TimerFunc(int value)
 		Player1[i].move();
 		Player2[i].move();
 	}
+
+	if (turn % 5 == 0) {
+		Card2.DistroyMap = true;
+	}
+	else if (turn % 5 == 1) {
+		Card1.DistroyMap = true;
+	}
+
 	glutTimerFunc(25, TimerFunc, 1);
 	glutPostRedisplay();
 }
@@ -190,49 +218,136 @@ void Keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
-	case '1':
-		Player2[0].changeDirection(FRONTUP, 1);
-		break;
+	case '1': // 플레이어를 선택하고 이동 벽면 충돌 못함
+		if (turn % 2 == 0) {
+			if (MoveTime) {
+				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player2[currentPlayer].changeDirection(Card2.getcardDirection(0), Card2.getCardMove(0));
+				Card2.cardDelete(0);
+				turn++;
+
+			}
+		}
+		else {
+			if (MoveTime) {
+				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player1[currentPlayer].changeDirection(Card1.getcardDirection(0), Card1.getCardMove(0));
+				Card1.cardDelete(0);
+				turn++;
+			}
+		}
+		
+		MoveTime = false; // 플레이어 오브젝트 선택 -> true -> 카드선택 -> 움직임 -> false
 	case '2':
-		Player2[0].changeDirection(BACKUP, 2);
+		if (turn % 2 == 0) {
+			if (MoveTime) {
+				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player2[currentPlayer].changeDirection(Card2.getcardDirection(1), Card2.getCardMove(1));
+				Card2.cardDelete(1);
+				turn++;
+			}
+		}
+		else {
+			if (MoveTime) {
+				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player1[currentPlayer].changeDirection(Card1.getcardDirection(1), Card1.getCardMove(1));
+				Card1.cardDelete(1);
+				turn++;
+			}
+		}
+		MoveTime = false;
 		break;
 	case '3':
-		Player2[0].changeDirection(LEFTUP, 3);
+		if (turn % 2 == 0) {
+			if (MoveTime) {
+				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player2[currentPlayer].changeDirection(Card2.getcardDirection(2), Card2.getCardMove(2));
+				Card2.cardDelete(2);
+				turn++;
+			}
+		}
+		else {
+			if (MoveTime) {
+				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player1[currentPlayer].changeDirection(Card1.getcardDirection(2), Card1.getCardMove(2));
+				Card1.cardDelete(2);
+				turn++;
+			}
+		}
+		MoveTime = false;
 		break;
 	case '4':
-		Player2[0].changeDirection(RIGHTUP, 4);
+		if (turn % 2 == 0) {
+			if (MoveTime) {
+				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player2[currentPlayer].changeDirection(Card2.getcardDirection(3), Card2.getCardMove(3));
+				Card2.cardDelete(3);
+				turn++;
+			}
+		}
+		else {
+			if (MoveTime) {
+				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player1[currentPlayer].changeDirection(Card1.getcardDirection(3), Card1.getCardMove(3));
+				Card1.cardDelete(3);
+				turn++;
+			}
+		}
+		MoveTime = false;
 		break;
 	case '5':
-		Player2[0].changeDirection(FRONTDOWN, 3);
+		if (turn % 2 == 0) {
+			if (MoveTime) {
+				Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player2[currentPlayer].changeDirection(Card2.getcardDirection(4), Card2.getCardMove(4));
+				Card2.cardDelete(4);
+				turn++;
+			}
+		}
+		else {
+			if (MoveTime) {
+				Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+				Player1[currentPlayer].changeDirection(Card1.getcardDirection(4), Card1.getCardMove(4));
+				Card1.cardDelete(4);
+				turn++;
+			}
+		}
+		MoveTime = false;
 		break;
-	case '6':
-		Player2[0].changeDirection(BACKDOWN, 3);
-		break;
-	case '7':
-		Player2[0].changeDirection(LEFTDOWN, 3);
-		break;
-	case '8':
-		Player2[0].changeDirection(RIGHTDOWN, 3);
+	case '6': // 이상하게 버그남
+		if (turn % 2 == 0) {
+			if (Card2.DistroyMap) {
+				int x;
+				int y;
+				std::cin >> x >> y;
+				Map[y][x].changeDirection(FALL, 99);
+				turn++;
+			}
+		}
+		else {
+			if (Card2.DistroyMap) {
+				int x;
+				int y;
+				std::cin >> x >> y;
+				Map[y][x].changeDirection(FALL, 99);
+				turn++;
+			}
+		}
 		break;
 	case 'A':
-	case 'a':
-		Player2[0].changeDirection(FRONT, 3);
+	case 'a': // 처음 플레이어 선택
+		MoveTime = true;
+		currentPlayer = 0; // 현재 플래이서 선택 넘버
 		break;
 	case 'S':
 	case 's':
-		Player2[0].changeDirection(BACK, 3);
+		MoveTime = true;
+		currentPlayer = 1;
 		break;
 	case 'D':
 	case 'd':
-		Player2[0].changeDirection(LEFT, 3);
-		break;
-	case 'F':
-	case 'f':
-		Player2[0].changeDirection(RIGHT, 3);
-		break;
-	case 'G':
-	case 'g':
-		Player2[0].changeDirection(FALL, 0);
+		MoveTime = true;
+		currentPlayer = 2;
 		break;
 	case 'Q':
 	case 'q':
@@ -285,5 +400,14 @@ void InitGame()
 
 	for (int i = 0; i < PLAYERNUM; ++i) {
 		Player2[i].initPlayer(BOXSIZE, 1);
+	}
+
+	for (int i = 0; i < CARDNUM; ++i) {
+		Card2.translateMatrix(i, -0.9 + CARDSIZE * i * 2, -0.9, 0.0);
+		Card1.translateMatrix(i, 0.9 - CARDSIZE * i * 2, 0.9, 0.0);
+	}
+	for (int i = 0; i < CARDNUM; ++i) {
+		Card1.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
+		Card2.cardInsert(uid_card(dreCard), uid_cardDirection(dreCard));
 	}
 }
