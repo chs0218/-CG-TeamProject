@@ -23,7 +23,14 @@ void objectManager::rotateMatrix(GLfloat degree, int base) {//base 어떤 축 기준 
 		rt = glm::rotate(rt, (GLfloat)glm::radians(degree), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
-	transform = rt * transform;
+	if (direction == STARTWARP || direction == ENDWARP) {
+		Warptransform = rt * Warptransform;
+	}
+	else {
+		transform = rt * transform;
+	}
+
+	
 }
 
 void objectManager::translateMatrix(GLfloat x, GLfloat y, GLfloat z) {
@@ -31,15 +38,30 @@ void objectManager::translateMatrix(GLfloat x, GLfloat y, GLfloat z) {
 
 	tr = glm::translate(tr, glm::vec3(x, y, z));
 
-	transform = tr * transform;
+
+	if (direction == STARTWARP || direction == ENDWARP) {
+		Warptransform = tr * Warptransform;
+	}
+	else {
+		transform = tr * transform;
+	}
 }
 
 void objectManager::scaleMatrix(GLfloat rateX, GLfloat rateY, GLfloat rateZ) {
 	glm::mat4 sc(1.0f);
 
-	sc = glm::scale(sc, glm::vec3(rateX, rateY, rateZ));
+	if (direction == STARTWARP || direction == ENDWARP) {
+		sc = glm::scale(sc, glm::vec3(rateX, rateY, rateZ));
 
-	transform = sc * transform;
+		Warptransform = sc * Warptransform;
+	}
+	else {
+		sc = glm::scale(sc, glm::vec3(rateX, rateY, rateZ));
+
+		transform = sc * transform;
+	}
+
+
 }
 
 void objectManager::changeDirection(int Mode, int Dis) {
@@ -80,11 +102,22 @@ void objectManager::initPlayer(GLfloat BoxSize, int index) {
 }
 
 void objectManager::setZero() {
-	translateMatrix(size * 19 - ((GLfloat)x * 2.0 * size), -size * (3 + 2 * y), size * 19 - ((GLfloat)z * 2.0 * size));
+	if (direction == STARTWARP || direction == ENDWARP) {
+		translateMatrix(size * 19 - ((GLfloat)WarpX * 2.0 * size), -size * (3 + 2 * WarpY), size * 19 - ((GLfloat)WarpZ * 2.0 * size));
+	}
+	else {
+		translateMatrix(size * 19 - ((GLfloat)x * 2.0 * size), -size * (3 + 2 * y), size * 19 - ((GLfloat)z * 2.0 * size));
+	}
+	
 }
 
 void objectManager::returnPlace() {
-	translateMatrix(-size * 19 + ((GLfloat)x * 2.0 * size), size * (3 + 2 * y), -size * 19 + ((GLfloat)z * 2.0 * size));
+	if (direction == STARTWARP || direction == ENDWARP) {
+		translateMatrix(-size * 19 + ((GLfloat)WarpX * 2.0 * size), size * (3 + 2 * WarpY), -size * 19 + ((GLfloat)WarpZ * 2.0 * size));
+	}
+	else {
+		translateMatrix(-size * 19 + ((GLfloat)x * 2.0 * size), size * (3 + 2 * y), -size * 19 + ((GLfloat)z * 2.0 * size));
+	}
 }
 
 void objectManager::setHeight(int height) {
@@ -492,11 +525,76 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 		direction = FALL;
 }
 
+void objectManager::Warp(glm::mat4 location, int Mx, int My, int Mz) {
+	Warptransform = transform;
+	location = glm::translate(location, glm::vec3(0, BOXSIZE * 2, 0));
+	transform = location;
+	WarpX = x;
+	WarpY = y;
+	WarpZ = z;
+	x = Mx;
+	y = My;
+	z = Mz;
+	direction = STARTWARP;
+}
+
+void objectManager::WarpAnimation() {
+	switch (direction)
+	{
+	case STARTWARP:
+		if (frame < 36)
+		{
+			setZero();
+			rotateMatrix(10.0, 2);
+			scaleMatrix(0.8, 0.8, 0.8);
+			returnPlace();
+			frame += 1;
+		}
+		else
+		{
+			frame = 0;
+			Warptransform = transform;
+			for (int i = 0; i < 36; ++i) {
+				scaleMatrix(0.8, 0.8, 0.8);
+			}
+			WarpX = x;
+			WarpY = y;
+			WarpZ = z;
+			direction = ENDWARP;
+		}
+		break;
+	case ENDWARP:
+		if (frame < 36)
+		{
+			setZero();
+			rotateMatrix(10.0, 2);
+			scaleMatrix(1.4, 1.4, 1.4);
+			returnPlace();
+			frame += 1;
+		}
+		else
+		{
+			frame = 0;
+			Warptransform = transform;
+			direction = STOP;
+		}
+		break;
+	default:
+		break;
+	}
+	
+}
+
+int objectManager::getDirection() {
+	return direction;
+}
+
 CardManager::CardManager() {
 	for (int i = 0; i < CARDNUM; ++i) {
 		transform[i] = glm::mat4(1.0);
 	}
 	DistroyMap = true;
+	WarpChance = true;
 
 }
 
@@ -508,6 +606,14 @@ void CardManager::cardInsert(int cardKind, int direction) {
 			break;
 		}
 	}
+}
+
+void CardManager::UseWarp() {
+	WarpChance = false;
+}
+
+bool CardManager::GetWarp() {
+	return WarpChance;
 }
 
 void CardManager::cardDelete(int index) {

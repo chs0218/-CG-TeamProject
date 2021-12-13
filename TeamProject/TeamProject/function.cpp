@@ -395,20 +395,41 @@ void Display()
 	for (int i = 0; i < PLAYERNUM; ++i) {
 		if (!Player1[i].checkDead())
 		{
-			glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player1[i].transform));
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, objtextures[i]);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			if (Player1[i].getDirection() != STARTWARP && Player1[i].getDirection() != ENDWARP) {
+				glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player1[i].transform));
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, objtextures[i]);
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+			}
+			else {
+				glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player1[i].Warptransform));
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, objtextures[i]);
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+			}
+			
+		}
+		else {
+
 		}
 	}
 
 	for (int i = 0; i < PLAYERNUM; ++i) {
 		if (!Player2[i].checkDead())
 		{
-			glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].transform));
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, objtextures[3 + i]);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			if (Player2[i].getDirection() != STARTWARP && Player2[i].getDirection() != ENDWARP) {
+				glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].transform));
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, objtextures[3 + i]);
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+			}
+			else {
+				glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].Warptransform));
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, objtextures[i]);
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+			}
+			
 		}
 	}
 
@@ -455,6 +476,18 @@ void TimerFunc(int value)
 	for (int i = 0; i < PLAYERNUM; ++i) {
 		Player1[i].move(Map[Player1[i].getZ() - 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() - 2][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 2][Player1[i].getX()].getY(), Map[Player1[i].getZ()][Player1[i].getX()].getY(), &Player2Score);
 		Player2[i].move(Map[Player2[i].getZ() - 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() - 2][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 2][Player2[i].getX()].getY(), Map[Player2[i].getZ()][Player2[i].getX()].getY(), &Player1Score);
+		Player1[i].WarpAnimation();
+		Player2[i].WarpAnimation();
+	}
+
+	for (int i = 0; i < PLAYERNUM; ++i) {
+		if (Player1[i].getDirection() == STARTWARP || Player1[i].getDirection() == ENDWARP) {
+
+		}
+
+		if (Player1[i].getDirection() == STARTWARP || Player1[i].getDirection() == ENDWARP) {
+
+		}
 	}
 
 	for (int i = 0; i < mapSize; ++i)
@@ -491,7 +524,7 @@ void Keyboard(unsigned char key, int x, int y)
 
 	switch (key)
 	{
-	case '1': // 플레이어를 선택하고 이동 벽면 충돌 못함
+	case '1': 
 		if (turn % 2 == 0) {
 			if (MoveTime) {
 				if (uid_dir == FALL)
@@ -678,6 +711,63 @@ void Keyboard(unsigned char key, int x, int y)
 			else
 			{
 				std::cout << "카드가 없습니다\n";
+			}
+		}
+		break;
+	case '7':
+		if (turn % 2 == 0) {
+			int x;
+			int z;
+			if (Card2.GetWarp()) {
+				while (true)
+				{
+					std::cout << "워프 위치를 입력해주세요(x, z): ";
+					std::cin >> x >> z;
+					if (x < 0 || x > 19 || z < 0 || z > 19)
+					{
+						std::cout << "0 < x < 19, 0 < z < 19만 가능합니다\n";
+						continue;
+					}
+
+					if (Map[z][x].getDirection() == FALL) {
+						std::cout << "Map이 없습니다\n";
+						continue;
+					}
+					else {
+						Player2[currentPlayer].Warp(Map[z][x].transform, x, Map[z][x].getY(), z);
+						Card2.UseWarp();
+					}
+					turn++;
+					break;
+				}
+			}
+			
+		}
+		else {
+			int x;
+			int z;
+			if (Card1.GetWarp()) {
+				while (true)
+				{
+					std::cout << "워프 위치를 입력해주세요(x, z): ";
+					std::cin >> x >> z;
+					if (x < 0 || x > 19 || z < 0 || z > 19)
+					{
+						std::cout << "0 < x < 19, 0 < z < 19만 가능합니다\n";
+						continue;
+					}
+
+					if (Map[z][x].getDirection() == FALL) {
+						std::cout << "Map이 없습니다\n";
+						continue;
+					}
+					else {
+						Player1[currentPlayer].Warp(Map[z][x].transform, x, Map[z][x].getY(), z);
+						Card1.UseWarp();
+					}
+					turn++;
+					break;
+				}
 			}
 		}
 		break;

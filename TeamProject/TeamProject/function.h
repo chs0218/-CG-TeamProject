@@ -11,8 +11,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-#define BOXSIZE 0.5
-
 #define CARDSIZE 0.1
 
 #define PLAYERNUM 3
