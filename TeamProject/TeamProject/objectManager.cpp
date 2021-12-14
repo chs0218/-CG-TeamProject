@@ -505,42 +505,6 @@ void objectManager::move(int frontHeight, int backHeight, int frontfrontHeight, 
 			}
 		}
 		break;
-	case FALL:
-		if (frame == 0)
-		{
-			*PlayerScore += 1;
-			frame += 1;
-		}
-		else if (frame < 200)
-		{
-			y = -999;
-			translateMatrix(0, -size, 0);
-			frame += 1;
-		}
-		break;
-	default:
-		break;
-	}
-	if (currentHeight == -999)
-		direction = FALL;
-}
-
-void objectManager::Warp(glm::mat4 location, int Mx, int My, int Mz) {
-	Warptransform = transform;
-	location = glm::translate(location, glm::vec3(0, BOXSIZE * 2, 0));
-	transform = location;
-	WarpX = x;
-	WarpY = y;
-	WarpZ = z;
-	x = Mx;
-	y = My;
-	z = Mz;
-	direction = STARTWARP;
-}
-
-void objectManager::WarpAnimation() {
-	switch (direction)
-	{
 	case STARTWARP:
 		if (frame < 36)
 		{
@@ -579,10 +543,37 @@ void objectManager::WarpAnimation() {
 			direction = STOP;
 		}
 		break;
+	case FALL:
+		if (frame == 0)
+		{
+			*PlayerScore += 1;
+			frame += 1;
+		}
+		else if (frame < 200)
+		{
+			y = -999;
+			translateMatrix(0, -size, 0);
+			frame += 1;
+		}
+		break;
 	default:
 		break;
 	}
-	
+	if (currentHeight == -999)
+		direction = FALL;
+}
+
+void objectManager::Warp(glm::mat4 location, int Mx, int My, int Mz) {
+	Warptransform = transform;
+	location = glm::translate(location, glm::vec3(0, BOXSIZE * 2, 0));
+	transform = location;
+	WarpX = x;
+	WarpY = y;
+	WarpZ = z;
+	x = Mx;
+	y = My;
+	z = Mz;
+	direction = STARTWARP;
 }
 
 int objectManager::getDirection() {

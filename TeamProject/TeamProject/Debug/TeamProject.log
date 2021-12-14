@@ -1,17 +1,16 @@
 ﻿  objectManager.cpp
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(84,92): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(84,33): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(93,92): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(93,33): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(106,97): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(106,29): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(109,89): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(109,29): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(116,98): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(116,30): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(119,90): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(119,30): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(549,29): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(558,30): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(571,29): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-  TeamProject.vcxproj -> C:\Users\ASUS\Documents\GitHub\-CG-TeamProject\TeamProject\Debug\TeamProject.exe
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(84,92): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(84,33): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(93,92): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(93,33): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(106,97): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(106,29): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(109,89): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(109,29): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(116,98): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(116,30): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(119,90): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(119,30): warning C4244: '인수': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(513,29): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+D:\Visual Studio\Project\-CG-TeamProject\TeamProject\TeamProject\objectManager.cpp(531,29): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+  TeamProject.vcxproj -> D:\Visual Studio\Project\-CG-TeamProject\TeamProject\Debug\TeamProject.exe

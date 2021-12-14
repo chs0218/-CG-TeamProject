@@ -426,7 +426,7 @@ void Display()
 			else {
 				glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Player2[i].Warptransform));
 				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, objtextures[i]);
+				glBindTexture(GL_TEXTURE_2D, objtextures[3 + i]);
 				glDrawArrays(GL_TRIANGLES, 0, 36);
 			}
 			
@@ -476,18 +476,6 @@ void TimerFunc(int value)
 	for (int i = 0; i < PLAYERNUM; ++i) {
 		Player1[i].move(Map[Player1[i].getZ() - 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 1][Player1[i].getX()].getY(), Map[Player1[i].getZ() - 2][Player1[i].getX()].getY(), Map[Player1[i].getZ() + 2][Player1[i].getX()].getY(), Map[Player1[i].getZ()][Player1[i].getX()].getY(), &Player2Score);
 		Player2[i].move(Map[Player2[i].getZ() - 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 1][Player2[i].getX()].getY(), Map[Player2[i].getZ() - 2][Player2[i].getX()].getY(), Map[Player2[i].getZ() + 2][Player2[i].getX()].getY(), Map[Player2[i].getZ()][Player2[i].getX()].getY(), &Player1Score);
-		Player1[i].WarpAnimation();
-		Player2[i].WarpAnimation();
-	}
-
-	for (int i = 0; i < PLAYERNUM; ++i) {
-		if (Player1[i].getDirection() == STARTWARP || Player1[i].getDirection() == ENDWARP) {
-
-		}
-
-		if (Player1[i].getDirection() == STARTWARP || Player1[i].getDirection() == ENDWARP) {
-
-		}
 	}
 
 	for (int i = 0; i < mapSize; ++i)

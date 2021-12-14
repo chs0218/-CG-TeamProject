@@ -57,8 +57,6 @@ public:
 
 	void Warp(glm::mat4 location, int x , int y, int z);
 
-	void WarpAnimation();
-
 	int getDirection();
 };
 
